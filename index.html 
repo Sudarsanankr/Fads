@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,173 +6,166 @@
 <title>THINQ OTT</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#090b12;color:white;font-family:Arial,sans-serif}
-header{padding:18px 5%;display:flex;align-items:center;justify-content:space-between;background:#10131e;position:sticky;top:0;z-index:5}
-.logo{font-size:25px;font-weight:900;color:#ff3155}
+body{margin:0;background:#080b13;color:white;font-family:Arial,sans-serif}
+header{background:#111827;padding:18px 5%;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+.logo{font-size:27px;font-weight:900;color:#ff3155}
 .logo span{color:white}
-nav a{color:#ddd;text-decoration:none;margin-left:12px;font-size:13px}
-.hero{padding:60px 6%;background:linear-gradient(90deg,#090b12,#452037);min-height:290px}
+nav a{color:white;text-decoration:none;margin-left:12px;font-size:13px}
+.hero{padding:65px 7%;background:linear-gradient(100deg,#101827,#6b183c);min-height:300px}
 .hero small{color:#ff5470;letter-spacing:3px}
-.hero h1{font-size:clamp(32px,7vw,45px);margin:14px 0}
-.hero p{color:#ccc;max-width:450px;line-height:1.6}
-button{border:0;border-radius:7px;padding:12px 20px;background:#ff3155;color:white;font-weight:bold;cursor:pointer}
-.search{padding:20px 5%;display:flex;gap:10px}
-.search input{flex:1;min-width:0;background:#191d29;color:white;border:1px solid #34394a;border-radius:8px;padding:14px;font-size:15px}
-.categories{padding:0 5% 15px;display:flex;gap:9px;flex-wrap:wrap}
-.categories button{background:#202536;color:#ddd;padding:9px 16px}
-.categories button.active{background:#ff3155;color:white}
-section{padding:12px 5% 28px}
-h2{font-size:21px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:17px}
-.card{background:#171b27;border-radius:10px;overflow:hidden}
-.poster{height:190px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:21px;font-weight:bold;background:linear-gradient(145deg,#263c66,#a52e54)}
-.card:nth-child(3n) .poster{background:linear-gradient(145deg,#164e50,#6c3980)}
-.card:nth-child(3n+1) .poster{background:linear-gradient(145deg,#693b24,#b34b35)}
-.info{padding:12px}
-.info h3{font-size:15px;margin:4px 0}
-.info p{font-size:12px;color:#aaa}
-.info button{width:100%;margin-top:5px;padding:10px 5px;font-size:12px}
-.info .trailer{background:#30394c;margin-top:7px}
-.empty{display:none;color:#aaa;padding:15px}
-#player{display:none;position:fixed;inset:0;background:#000;z-index:20;padding:15px}
-#playerContent{height:85vh;display:flex;align-items:center;justify-content:center}
-#playerContent iframe,#playerContent video{width:100%;height:100%;border:0}
-#player h2{font-size:17px}
-#player button{margin-top:10px}
-footer{text-align:center;padding:30px;color:#999;background:#10131e}
-@media(max-width:500px){nav a{margin-left:7px;font-size:12px}.hero{padding-top:45px}.poster{height:175px}}
+.hero h1{font-size:42px;margin:15px 0}
+.hero p{color:#ddd;max-width:420px;line-height:1.6}
+button{border:0;border-radius:7px;padding:12px 18px;background:#ff3155;color:white;font-weight:bold;cursor:pointer}
+.search{padding:20px 5%}
+.search input{width:100%;padding:15px;border:1px solid #444;border-radius:8px;background:#171e2b;color:white;font-size:16px}
+h2{margin:25px 5% 15px}
+.categories{display:flex;gap:10px;overflow-x:auto;padding:5px 5% 15px}
+.categories button{white-space:nowrap;background:#202a3a}
+.categories button.active{background:#ff3155}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;padding:0 5%}
+.movie{background:#151c29;border-radius:9px;overflow:hidden;cursor:pointer}
+.movie img{width:100%;height:165px;object-fit:cover}
+.movie-info{padding:10px}
+.movie-info h3{font-size:14px;margin:3px 0 7px}
+.movie-info p{font-size:12px;color:#aaa;margin:0 0 9px}
+.movie-info button{padding:8px;font-size:12px;width:100%}
+.player{display:none;position:fixed;inset:0;background:#000;z-index:20;align-items:center;justify-content:center;flex-direction:column;padding:15px}
+.player video{width:100%;max-height:75vh}
+.player button{margin-top:15px}
+footer{text-align:center;color:#888;padding:35px 10px}
+@media(max-width:500px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.movie img{height:190px}
+.hero h1{font-size:34px}
+nav a{font-size:11px;margin-left:6px}
+}
 </style>
 </head>
 <body>
 
 <header>
-<div class="logo">THINQ <span>OTT</span></div>
+<div class="logo">THINQ<span> OTT</span></div>
 <nav>
 <a href="#home">Home</a>
 <a href="#movies">Movies</a>
-<a href="#series">Series</a>
+<a href="#latest">Latest</a>
 </nav>
 </header>
 
-<div class="hero" id="home">
-<small>YOUR ENTERTAINMENT WORLD</small>
-<h1>Welcome to THINQ OTT</h1>
-<p>Discover movies, web series and entertainment in one place.</p>
-<button onclick="document.getElementById('movies').scrollIntoView({behavior:'smooth'})">Explore Now ▶</button>
-</div>
+<section class="hero" id="home">
+<small>WELCOME TO THINQ OTT</small>
+<h1>Unlimited Entertainment</h1>
+<p>Discover movies, explore new stories and enjoy entertainment in one place.</p>
+<button onclick="document.getElementById('movies').scrollIntoView()">▶ Explore Movies</button>
+</section>
 
 <div class="search">
-<input id="searchBox" type="search" placeholder="🔍 Search movies and series..." oninput="render()">
+<input id="search" type="search" placeholder="🔍 Search your favourite movie..." oninput="render()">
 </div>
 
-<div class="categories">
-<button class="active" onclick="setCategory('All',this)">All</button>
-<button onclick="setCategory('Movie',this)">Movies</button>
-<button onclick="setCategory('Series',this)">Web Series</button>
-<button onclick="setCategory('Action',this)">Action</button>
-<button onclick="setCategory('Drama',this)">Drama</button>
-<button onclick="setCategory('Comedy',this)">Comedy</button>
-<button onclick="setCategory('Malayalam',this)">Malayalam</button>
+<h2>🎭 Browse Categories</h2>
+<div class="categories" id="categories">
+<button class="active" onclick="filter('All',this)">All</button>
+<button onclick="filter('Action',this)">Action</button>
+<button onclick="filter('Drama',this)">Drama</button>
+<button onclick="filter('Comedy',this)">Comedy</button>
+<button onclick="filter('Thriller',this)">Thriller</button>
+<button onclick="filter('Adventure',this)">Adventure</button>
 </div>
 
-<section id="movies">
 <h2>⭐ Featured Movies</h2>
-<div class="grid" id="featuredGrid"></div>
-</section>
+<div class="grid" id="featured"></div>
 
-<section>
-<h2>🔥 Latest Movies</h2>
-<div class="grid" id="movieGrid"></div>
-<p class="empty" id="empty">No titles found. Try another search.</p>
-</section>
+<h2 id="latest">🆕 Latest Movies</h2>
+<div class="grid" id="movies"></div>
 
-<section id="series">
-<h2>🎬 Explore Entertainment</h2>
-<p style="color:#aaa;line-height:1.6">Your destination for movies and web series. More content can be added here as you obtain streaming rights.</p>
-</section>
-
-<div id="player">
-<h2 id="playingTitle">Now Playing</h2>
-<div id="playerContent"></div>
+<div class="player" id="player">
+<video id="video" controls playsinline></video>
 <button onclick="closePlayer()">✕ Close Player</button>
 </div>
 
 <footer>
 <div class="logo">THINQ OTT</div>
-<p>Made with ❤️ by Sudarsanan K R</p>
-<p>© 2026 THINQ OTT. All rights reserved.</p>
+<p>Your Entertainment. Your World.</p>
+<p>© 2026 THINQ OTT</p>
 </footer>
 
 <script>
-const titles=[
-{name:"The Great Adventure",type:"Movie",genre:"Action",year:"2026",featured:true},
-{name:"Mystery World",type:"Movie",genre:"Drama",year:"2026",featured:true},
-{name:"Laugh Out Loud",type:"Movie",genre:"Comedy",year:"2025"},
-{name:"Malayalam Stories",type:"Movie",genre:"Malayalam",year:"2026"},
-{name:"Wild Planet",type:"Series",genre:"Drama",year:"2025"},
-{name:"Action Heroes",type:"Movie",genre:"Action",year:"2026"},
-{name:"Dream Journey",type:"Series",genre:"Drama",year:"2026"},
-{name:"Fun Unlimited",type:"Movie",genre:"Comedy",year:"2025"}
+const data=[
+{
+name:"Adventure World",cat:"Adventure",year:"2026",
+img:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=600",
+video:"https://www.w3schools.com/html/mov_bbb.mp4"
+},
+{
+name:"Action Force",cat:"Action",year:"2026",
+img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=600",
+video:"https://www.w3schools.com/html/movie.mp4"
+},
+{
+name:"Mystery Night",cat:"Thriller",year:"2025",
+img:"https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=600",
+video:"https://www.w3schools.com/html/mov_bbb.mp4"
+},
+{
+name:"Dream Stories",cat:"Drama",year:"2026",
+img:"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=600",
+video:"https://www.w3schools.com/html/movie.mp4"
+},
+{
+name:"Funny Days",cat:"Comedy",year:"2025",
+img:"https://images.unsplash.com/photo-1485846234645-a62644f84728?w=600",
+video:"https://www.w3schools.com/html/mov_bbb.mp4"
+},
+{
+name:"Wild Planet",cat:"Adventure",year:"2026",
+img:"https://images.unsplash.com/photo-1472396961693-142e6e269027?w=600",
+video:"https://www.w3schools.com/html/movie.mp4"
+}
 ];
 
-let category="All";
+let selected="All";
 
-function card(t,i){
-return `<div class="card">
-<div class="poster">${t.name}</div>
-<div class="info">
-<h3>${t.name}</h3>
-<p>${t.type} · ${t.genre} · ${t.year}</p>
-<button onclick="playMovie(${i})">▶ Watch</button>
-<button class="trailer" onclick="showTrailer(${i})">🎬 Trailer</button>
+function card(m){
+return `<div class="movie">
+<img src="${m.img}" alt="${m.name}">
+<div class="movie-info">
+<h3>${m.name}</h3>
+<p>${m.cat} • ${m.year}</p>
+<button onclick="playMovie('${m.video}')">▶ Watch Trailer</button>
 </div></div>`;
 }
 
 function render(){
-const q=document.getElementById("searchBox").value.toLowerCase();
-const list=titles.map((t,i)=>({...t,index:i})).filter(t=>
-(category==="All"||t.type===category||t.genre===category)&&
-(t.name.toLowerCase().includes(q)||t.genre.toLowerCase().includes(q))
+let q=document.getElementById("search").value.toLowerCase();
+let list=data.filter(m=>
+(selected==="All"||m.cat===selected)&&
+m.name.toLowerCase().includes(q)
 );
-document.getElementById("movieGrid").innerHTML=list.map(t=>card(t,t.index)).join("");
-document.getElementById("empty").style.display=list.length?"none":"block";
-
-const featured=titles.map((t,i)=>({...t,index:i})).filter(t=>t.featured);
-document.getElementById("featuredGrid").innerHTML=featured.map(t=>card(t,t.index)).join("");
+document.getElementById("movies").innerHTML=list.map(card).join("");
+document.getElementById("featured").innerHTML=data.slice(0,3).map(card).join("");
 }
 
-function setCategory(c,btn){
-category=c;
+function filter(cat,btn){
+selected=cat;
 document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 render();
 }
 
-function showTrailer(i){
-const t=titles[i];
-document.getElementById("playingTitle").textContent=t.name+" - Trailer";
-document.getElementById("playerContent").innerHTML=
-`<div style="text-align:center;color:white">
-<h2>🎬 ${t.name}</h2>
-<p>Search for the official trailer on YouTube.</p>
-<button onclick="window.open('https://www.youtube.com/results?search_query='+encodeURIComponent('${t.name} official trailer'),'_blank')">▶ Watch Trailer on YouTube</button>
-</div>`;
-document.getElementById("player").style.display="block";
-}
-
-function playMovie(i){
-const t=titles[i];
-document.getElementById("playingTitle").textContent=t.name;
-document.getElementById("playerContent").innerHTML=
-`<div style="text-align:center;color:white">
-<h2>${t.name}</h2>
-<p>Demo player. Add your own licensed movie video URL to stream this title.</p>
-</div>`;
-document.getElementById("player").style.display="block";
+function playMovie(url){
+let p=document.getElementById("player");
+let v=document.getElementById("video");
+p.style.display="flex";
+v.src=url;
+v.play();
+if(v.requestFullscreen)v.requestFullscreen().catch(()=>{});
 }
 
 function closePlayer(){
-document.getElementById("playerContent").innerHTML="";
+let v=document.getElementById("video");
+v.pause();
+v.src="";
 document.getElementById("player").style.display="none";
 }
 
@@ -181,4 +173,3 @@ render();
 </script>
 </body>
 </html>
- 
