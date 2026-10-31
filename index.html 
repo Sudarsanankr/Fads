@@ -9,12 +9,12 @@
 *{box-sizing:border-box}
 body{margin:0;background:#090b12;color:white;font-family:Arial,sans-serif}
 header{padding:18px 5%;display:flex;align-items:center;justify-content:space-between;background:#10131e;position:sticky;top:0;z-index:5}
-.logo{font-size:25px;font-weight:900;color:#ff3155;letter-spacing:1px}
+.logo{font-size:25px;font-weight:900;color:#ff3155}
 .logo span{color:white}
-nav a{color:#ddd;text-decoration:none;margin-left:15px;font-size:14px}
-.hero{padding:65px 6%;background:linear-gradient(90deg,#111522,#24152b,#111522);min-height:290px}
+nav a{color:#ddd;text-decoration:none;margin-left:12px;font-size:13px}
+.hero{padding:60px 6%;background:linear-gradient(90deg,#090b12,#452037);min-height:290px}
 .hero small{color:#ff5470;letter-spacing:3px}
-.hero h1{font-size:42px;margin:14px 0}
+.hero h1{font-size:clamp(32px,7vw,45px);margin:14px 0}
 .hero p{color:#ccc;max-width:450px;line-height:1.6}
 button{border:0;border-radius:7px;padding:12px 20px;background:#ff3155;color:white;font-weight:bold;cursor:pointer}
 .search{padding:20px 5%;display:flex;gap:10px}
@@ -28,23 +28,31 @@ h2{font-size:21px}
 .card{background:#171b27;border-radius:10px;overflow:hidden}
 .poster{height:190px;display:flex;align-items:center;justify-content:center;text-align:center;padding:12px;font-size:21px;font-weight:bold;background:linear-gradient(145deg,#263c66,#a52e54)}
 .card:nth-child(3n) .poster{background:linear-gradient(145deg,#164e50,#6c3980)}
-.card:nth-child(3n+1) .poster{background:linear-gradient(145deg,#633d24,#b83c56)}
+.card:nth-child(3n+1) .poster{background:linear-gradient(145deg,#693b24,#b34b35)}
 .info{padding:12px}
-.info h3{font-size:15px;margin:0 0 7px}
-.info p{font-size:12px;color:#aaa;margin:0 0 12px}
-.info button{width:100%;padding:9px}
-.player{display:none;padding:20px 5%;background:#111522}
-.player video{width:100%;max-height:420px;background:#000;border-radius:10px}
-.player h2{margin-top:10px}
-footer{text-align:center;padding:30px;color:#888;background:#10131e;font-size:13px}
-.empty{color:#aaa;padding:20px;display:none}
-@media(max-width:500px){.hero h1{font-size:32px}.hero{padding-top:45px}nav a{margin-left:7px;font-size:12px}.poster{height:165px}}
+.info h3{font-size:15px;margin:4px 0}
+.info p{font-size:12px;color:#aaa}
+.info button{width:100%;margin-top:5px;padding:10px 5px;font-size:12px}
+.info .trailer{background:#30394c;margin-top:7px}
+.empty{display:none;color:#aaa;padding:15px}
+#player{display:none;position:fixed;inset:0;background:#000;z-index:20;padding:15px}
+#playerContent{height:85vh;display:flex;align-items:center;justify-content:center}
+#playerContent iframe,#playerContent video{width:100%;height:100%;border:0}
+#player h2{font-size:17px}
+#player button{margin-top:10px}
+footer{text-align:center;padding:30px;color:#999;background:#10131e}
+@media(max-width:500px){nav a{margin-left:7px;font-size:12px}.hero{padding-top:45px}.poster{height:175px}}
 </style>
 </head>
 <body>
+
 <header>
 <div class="logo">THINQ <span>OTT</span></div>
-<nav><a href="#home">Home</a><a href="#movies">Movies</a><a href="#series">Series</a></nav>
+<nav>
+<a href="#home">Home</a>
+<a href="#movies">Movies</a>
+<a href="#series">Series</a>
+</nav>
 </header>
 
 <div class="hero" id="home">
@@ -55,7 +63,7 @@ footer{text-align:center;padding:30px;color:#888;background:#10131e;font-size:13
 </div>
 
 <div class="search">
-<input id="searchBox" type="search" placeholder="Search movies and series..." oninput="filterMovies()">
+<input id="searchBox" type="search" placeholder="🔍 Search movies and series..." oninput="render()">
 </div>
 
 <div class="categories">
@@ -64,28 +72,31 @@ footer{text-align:center;padding:30px;color:#888;background:#10131e;font-size:13
 <button onclick="setCategory('Series',this)">Web Series</button>
 <button onclick="setCategory('Action',this)">Action</button>
 <button onclick="setCategory('Drama',this)">Drama</button>
+<button onclick="setCategory('Comedy',this)">Comedy</button>
+<button onclick="setCategory('Malayalam',this)">Malayalam</button>
 </div>
 
 <section id="movies">
-<h2>🔥 Trending Now</h2>
+<h2>⭐ Featured Movies</h2>
+<div class="grid" id="featuredGrid"></div>
+</section>
+
+<section>
+<h2>🔥 Latest Movies</h2>
 <div class="grid" id="movieGrid"></div>
 <p class="empty" id="empty">No titles found. Try another search.</p>
 </section>
-
-<div class="player" id="player">
-<h2 id="playingTitle">Now Playing</h2>
-<video id="videoPlayer" controls playsinline preload="metadata">
-<source src="https://archive.org/download/BigBuckBunny_124/Content/big_buck_bunny_720p_surround.mp4" type="video/mp4">
-Your browser does not support video playback.
-</video>
-<p style="color:#aaa;font-size:13px">Demo video for testing the player. Replace with videos you own or are licensed to stream.</p>
-<button onclick="closePlayer()">Close Player</button>
-</div>
 
 <section id="series">
 <h2>🎬 Explore Entertainment</h2>
 <p style="color:#aaa;line-height:1.6">Your destination for movies and web series. More content can be added here as you obtain streaming rights.</p>
 </section>
+
+<div id="player">
+<h2 id="playingTitle">Now Playing</h2>
+<div id="playerContent"></div>
+<button onclick="closePlayer()">✕ Close Player</button>
+</div>
 
 <footer>
 <div class="logo">THINQ OTT</div>
@@ -95,46 +106,77 @@ Your browser does not support video playback.
 
 <script>
 const titles=[
-{name:"The Adventure",type:"Movie",genre:"Action",year:"2026",art:"ADVENTURE"},
-{name:"Mystery World",type:"Series",genre:"Drama",year:"2026",art:"MYSTERY"},
-{name:"The Journey",type:"Movie",genre:"Drama",year:"2025",art:"JOURNEY"},
-{name:"Action Force",type:"Movie",genre:"Action",year:"2025",art:"ACTION FORCE"},
-{name:"Dream Stories",type:"Series",genre:"Drama",year:"2026",art:"DREAM STORIES"},
-{name:"Wild Planet",type:"Movie",genre:"Action",year:"2025",art:"WILD PLANET"}
+{name:"The Great Adventure",type:"Movie",genre:"Action",year:"2026",featured:true},
+{name:"Mystery World",type:"Movie",genre:"Drama",year:"2026",featured:true},
+{name:"Laugh Out Loud",type:"Movie",genre:"Comedy",year:"2025"},
+{name:"Malayalam Stories",type:"Movie",genre:"Malayalam",year:"2026"},
+{name:"Wild Planet",type:"Series",genre:"Drama",year:"2025"},
+{name:"Action Heroes",type:"Movie",genre:"Action",year:"2026"},
+{name:"Dream Journey",type:"Series",genre:"Drama",year:"2026"},
+{name:"Fun Unlimited",type:"Movie",genre:"Comedy",year:"2025"}
 ];
+
 let category="All";
-function render(){
-const q=document.getElementById("searchBox").value.toLowerCase();
-const list=titles.filter(t=>(category==="All"||t.type===category||t.genre===category)&&
-(t.name.toLowerCase().includes(q)||t.genre.toLowerCase().includes(q)));
-document.getElementById("movieGrid").innerHTML=list.map(t=>`
-<div class="card">
-<div class="poster">${t.art}</div>
+
+function card(t,i){
+return `<div class="card">
+<div class="poster">${t.name}</div>
 <div class="info">
 <h3>${t.name}</h3>
-<p>${t.type} • ${t.genre} • ${t.year}</p>
-<button onclick="playDemo('${t.name}')">▶ Watch Demo</button>
-</div></div>`).join("");
-document.getElementById("empty").style.display=list.length?"none":"block";
+<p>${t.type} · ${t.genre} · ${t.year}</p>
+<button onclick="playMovie(${i})">▶ Watch</button>
+<button class="trailer" onclick="showTrailer(${i})">🎬 Trailer</button>
+</div></div>`;
 }
-function filterMovies(){render()}
+
+function render(){
+const q=document.getElementById("searchBox").value.toLowerCase();
+const list=titles.map((t,i)=>({...t,index:i})).filter(t=>
+(category==="All"||t.type===category||t.genre===category)&&
+(t.name.toLowerCase().includes(q)||t.genre.toLowerCase().includes(q))
+);
+document.getElementById("movieGrid").innerHTML=list.map(t=>card(t,t.index)).join("");
+document.getElementById("empty").style.display=list.length?"none":"block";
+
+const featured=titles.map((t,i)=>({...t,index:i})).filter(t=>t.featured);
+document.getElementById("featuredGrid").innerHTML=featured.map(t=>card(t,t.index)).join("");
+}
+
 function setCategory(c,btn){
 category=c;
 document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
 btn.classList.add("active");
 render();
 }
-function playDemo(name){
-document.getElementById("playingTitle").textContent=name+" — Demo Player";
+
+function showTrailer(i){
+const t=titles[i];
+document.getElementById("playingTitle").textContent=t.name+" - Trailer";
+document.getElementById("playerContent").innerHTML=
+`<div style="text-align:center;color:white">
+<h2>🎬 ${t.name}</h2>
+<p>Search for the official trailer on YouTube.</p>
+<button onclick="window.open('https://www.youtube.com/results?search_query='+encodeURIComponent('${t.name} official trailer'),'_blank')">▶ Watch Trailer on YouTube</button>
+</div>`;
 document.getElementById("player").style.display="block";
-document.getElementById("player").scrollIntoView({behavior:"smooth"});
-document.getElementById("videoPlayer").load();
 }
+
+function playMovie(i){
+const t=titles[i];
+document.getElementById("playingTitle").textContent=t.name;
+document.getElementById("playerContent").innerHTML=
+`<div style="text-align:center;color:white">
+<h2>${t.name}</h2>
+<p>Demo player. Add your own licensed movie video URL to stream this title.</p>
+</div>`;
+document.getElementById("player").style.display="block";
+}
+
 function closePlayer(){
-const v=document.getElementById("videoPlayer");
-v.pause();
+document.getElementById("playerContent").innerHTML="";
 document.getElementById("player").style.display="none";
 }
+
 render();
 </script>
 </body>
