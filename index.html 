@@ -104,4 +104,4 @@ document.getElementById("player").style.display="none";
 renderMovies();
 </script>
 </body>
-</html>
+</html> 
