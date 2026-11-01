@@ -149,7 +149,45 @@ function movieCard(m){let title=m.title||m.name||'Untitled';return `<article cla
 function renderGrid(id,items){$(id).innerHTML=items&&items.length?items.map(movieCard).join(''):'<div class="empty">No movies found.</div>';}
 async function loadMovies(){try{$('trendingGrid').innerHTML='<div class="empty">Loading...</div>';let [t,p,ml]=await Promise.all([tmdb('/trending/movie/week?language=en-US'),tmdb('/movie/popular?language=en-US&page=1'),tmdb('/discover/movie?with_original_language=ml&sort_by=popularity.desc&language=en-US&page=1')]);renderGrid('trendingGrid',t.results||[]);renderGrid('popularGrid',p.results||[]);renderGrid('malayalamGrid',ml.results||[]);}catch(e){$('trendingGrid').innerHTML='<div class="empty">'+esc(e.message)+'</div>';}}
 async function searchMovies(){let q=$('searchInput').value.trim();if(!q)return;$('searchResults').hidden=false;$('searchGrid').innerHTML='<div class="empty">Searching...</div>';try{let d=await tmdb('/search/movie?query='+encodeURIComponent(q)+'&include_adult=false&language=en-US&page=1');renderGrid('searchGrid',d.results||[]);$('searchCount').textContent=(d.results||[]).length+' results';$('searchResults').scrollIntoView({behavior:'smooth'});}catch(e){$('searchGrid').innerHTML='<div class="empty">'+esc(e.message)+'</div>';}}
-async function openMovie(id){try{let [m,v]=await Promise.all([tmdb('/movie/'+id+'?language=en-US'),tmdb('/movie/'+id+'/videos?language=en-US')]);selectedMovie=m;$('detailTitle').textContent=m.title||'Movie';$('detailPoster').src=m.poster_path?IMG+m.poster_path:'https://placehold.co/400x600/172238/ffffff?text=No+Poster';$('detailOverview').textContent=m.overview||'വിവരണം ലഭ്യമല്ല.';$('detailMeta').textContent=(m.release_date||'').slice(0,4)+' · ★ '+(m.vote_average?m.vote_average.toFixed(1):'—')+(m.runtime?' · '+m.runtime+' min':'');$('trailerPlayer').className='player-wrap';$('trailerPlayer').innerHTML='';$('fullPlayer').className='player-wrap';$('fullPlayer').innerHTML='';let tr=(v.results||[]).find(x=>x.site==='YouTube'&&x.type==='Trailer'&&x.key)||(v.results||[]).find(x=>x.site==='YouTube'&&x.key);$('trailerBtn').disabled=!tr;$('trailerBtn').dataset.key=tr?tr.key:'';$('movieModal').classList.add('show');}catch(e){alert(e.message);}}
+async function openMovie(id){try{let [m,v]=await Promise.all([tmdb('/movie/'+id+'?language=en-US'),tmdb('/movie/'+id+'/videos?language=en-US')]);selectedMovie=m;$('detailTitle').textContent=m.title||'Movie';$('detailPoster').src=m.poster_path?IMG+m.poster_path:'https://placehold.co/400x600/172238/ffffff?text=No+Poster';$('detailOverview').textContent=m.overview||'വിവരണം ലഭ്യമല്ല.';$('detailMeta').textContent=(m.release_date||'').slice(0,4)+' · ★ '+(m.vote_average?m.vote_average.toFixed(1):'—')+(m.runtime?' · '+m.runtime+' min':'');$('trailerPlayer').className='player-wrap';$('trailerBtn').onclick = () => {
+  const key = $('trailerBtn').dataset.key;
+
+  if (!key) {
+    alert('ഈ സിനിമയ്ക്ക് YouTube trailer ലഭ്യമല്ല.');
+    return;
+  }
+
+  $('fullPlayer').className = 'player-wrap';
+  $('fullPlayer').innerHTML = '';
+
+  $('trailerPlayer').className = 'player-wrap show';
+
+  const embedUrl =
+    'https://www.youtube.com/embed/' +
+    encodeURIComponent(key) +
+    '?autoplay=1&playsinline=1&rel=0';
+
+  $('trailerPlayer').innerHTML = `
+    <iframe
+      src="${embedUrl}"
+      title="FADS+ YouTube Trailer Player"
+      width="100%"
+      height="100%"
+      style="width:100%;aspect-ratio:16/9;border:0;background:#000"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen
+      referrerpolicy="strict-origin-when-cross-origin">
+    </iframe>
+  `;
+
+  $('trailerPlayer').scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+
+  $('playerNote').textContent =
+    'YouTube Trailer FADS+ പേജിനുള്ളിൽ പ്ലേ ചെയ്യുന്നു.';
+};'';$('fullPlayer').className='player-wrap';$('fullPlayer').innerHTML='';let tr=(v.results||[]).find(x=>x.site==='YouTube'&&x.type==='Trailer'&&x.key)||(v.results||[]).find(x=>x.site==='YouTube'&&x.key);$('trailerBtn').disabled=!tr;$('trailerBtn').dataset.key=tr?tr.key:'';$('movieModal').classList.add('show');}catch(e){alert(e.message);}}
 function closeModal(){$('movieModal').classList.remove('show');$('trailerPlayer').innerHTML='';$('fullPlayer').innerHTML='';}
 $('saveKey').onclick=()=>{apiKey=$('apiKey').value.trim();if(!apiKey){alert('TMDB API key ചേർക്കുക.');return;}localStorage.setItem('fads_tmdb_key',apiKey);loadMovies();};$('searchBtn').onclick=searchMovies;$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchMovies();});document.body.addEventListener('click',e=>{let c=e.target.closest('.movie');if(c)openMovie(c.dataset.id);});$('closeModal').onclick=closeModal;$('movieModal').addEventListener('click',e=>{if(e.target===$('movieModal'))closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 $('trailerBtn').onclick=()=>{let key=$('trailerBtn').dataset.key;if(!key)return;$('fullPlayer').className='player-wrap';$('fullPlayer').innerHTML='';$('trailerPlayer').className='player-wrap show';const siteOrigin=location.origin;const pageUrl=location.href;const embedUrl='https://www.youtube.com/embed/'+encodeURIComponent(key)+'?autoplay=1&playsinline=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(siteOrigin)+'&widget_referrer='+encodeURIComponent(pageUrl);$('trailerPlayer').innerHTML=`<iframe src="${embedUrl}" title="Movie trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="origin"></iframe>`;$('playerNote').textContent='Trailer FADS+ വെബ്സൈറ്റിനുള്ളിൽ പ്ലേ ചെയ്യാൻ ശ്രമിക്കുന്നു. Error 153 തുടരുകയോ “embedding disabled” കാണിക്കുകയോ ചെയ്താൽ ആ trailer-ന് YouTube നിയന്ത്രണമുണ്ടാകാം.';};
