@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="ml">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080b14">
+  <title>FADS+ | Movie Discovery</title>
+  <style>
+:root{--bg:#080b14;--panel:#121a2a;--line:#293750;--muted:#aab6c9;--pink:#ed174c;--white:#f7f8fb}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:system-ui,-apple-system,"Noto Sans Malayalam",Arial,sans-serif}
+header{position:sticky;top:0;z-index:20;background:#080b14ed;backdrop-filter:blur(14px);border-bottom:1px solid #ffffff18;padding:12px 4%;display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.logo{font-size:29px;font-weight:950;letter-spacing:-1.4px;white-space:nowrap}.logo span{color:#ff426d}nav{display:flex;gap:18px;flex:1}nav a{color:#cbd3e2;text-decoration:none;font-size:14px;font-weight:700}
+.searchbar{display:flex;gap:8px;min-width:min(390px,100%)}input{min-width:0;flex:1;background:#151e30;color:white;border:1px solid #35435e;border-radius:12px;padding:12px 14px;font:inherit;outline:none}input:focus{border-color:#f43f68}
+button{font:inherit;cursor:pointer;border:0;border-radius:11px;padding:11px 16px;font-weight:800}.primary{background:var(--pink);color:white}.secondary{background:#2a354b;color:white}.quiet{background:#202b40;color:#fff}
+.hero{min-height:330px;padding:50px 5%;display:flex;align-items:center;background:linear-gradient(90deg,#070b14 0%,#10172b 60%,#10172b66 100%)}.hero-inner{max-width:650px}.eyebrow{color:#ff7896;font-weight:900;letter-spacing:2px;font-size:12px}.hero h1{font-size:clamp(34px,6vw,62px);line-height:1.03;margin:12px 0}.hero p{color:#d0d7e4;max-width:560px;line-height:1.7}.hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+main{padding:24px 4% 70px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 14px}.section-head h2{font-size:21px;margin:0}.sub{color:var(--muted);font-size:13px}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:17px}.movie{background:var(--panel);border:1px solid #ffffff10;border-radius:13px;overflow:hidden;cursor:pointer;transition:.18s}.movie:hover{transform:translateY(-4px);border-color:#ed174c99}.movie img{width:100%;aspect-ratio:2/3;object-fit:cover;display:block;background:#1c2940}.movie-info{padding:10px}.movie-title{font-weight:800;font-size:14px;line-height:1.35}.movie-meta{color:var(--muted);font-size:12px;margin-top:5px}.empty{color:var(--muted);padding:25px;text-align:center;background:var(--panel);border-radius:12px}
+.api-panel{background:#111a2a;border:1px solid var(--line);border-radius:14px;padding:15px;margin:20px 0}.api-panel summary{font-weight:800;cursor:pointer}.api-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.api-row input{min-width:200px}.hint{font-size:12px;color:var(--muted);line-height:1.6;margin-top:9px}
+.modal{display:none;position:fixed;inset:0;z-index:50;background:#000c;overflow:auto;padding:22px}.modal.show{display:block}.dialog{max-width:900px;margin:20px auto;background:#101827;border:1px solid #ffffff22;border-radius:18px;overflow:hidden;box-shadow:0 20px 80px #0009}.detail-hero{padding:25px;background:linear-gradient(90deg,#0c1220f5,#0c1220c9);display:grid;grid-template-columns:150px 1fr;gap:22px}.detail-hero img{width:100%;border-radius:10px}.detail h2{margin:0 0 8px;font-size:26px}.detail p{color:#d2d9e5;line-height:1.65}.close{float:right;background:#ffffff1c;color:white;font-size:20px;padding:6px 12px}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.content{padding:20px}.player-wrap{display:none;margin-top:15px;background:#05070c;border-radius:12px;overflow:hidden}.player-wrap.show{display:block}.player-wrap video,.player-wrap iframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:#000}.player-note{font-size:13px;color:var(--muted);line-height:1.6;margin:10px 0}.notice{background:#1c2a40;padding:12px;border-radius:10px;color:#dbe5f5;font-size:13px;line-height:1.6;margin-top:12px}
+footer{border-top:1px solid #ffffff18;padding:25px 4%;color:var(--muted);font-size:12px;line-height:1.7}
+@media(max-width:650px){header{gap:12px}nav{order:3;flex-basis:100%;overflow:auto}nav a{white-space:nowrap}.searchbar{min-width:100%;order:4}.hero{min-height:300px;padding:40px 5%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.detail-hero{grid-template-columns:100px 1fr;padding:16px}.detail h2{font-size:20px}.modal{padding:8px}.dialog{margin:8px auto}}
+ 
+.fads-vlc{background:#05070c;border:1px solid #35435e;border-radius:14px;overflow:hidden;margin:12px 0}
+.fads-vlc video{display:block;width:100%;max-height:65vh;aspect-ratio:16/9;background:#000}
+.fads-vlc .vlc-title{padding:10px 13px;background:#101827;color:#f7f8fb;font-weight:800}
+.fads-vlc .vlc-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:11px;background:#101827}
+.fads-vlc button,.fads-vlc select{background:#25334a;color:#fff;border:1px solid #435675;border-radius:8px;padding:8px 10px;font:inherit}
+.fads-vlc input[type=range]{accent-color:#ed174c;min-width:65px;flex:1}
+.fads-vlc .vlc-time{font-size:12px;color:#cbd3e2;white-space:nowrap}
+ 
+</style>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    FADS<span>+</span>
+   </div>
+   <nav>
+    <a href="#home">Home</a><a href="#trending">Trending</a><a href="#popular">Popular</a><a href="#malayalam">Malayalam</a><a href="#playerInfo">FADS Player</a>
+   </nav>
+   <div class="searchbar">
+    <input id="searchInput" placeholder="Search movies..." aria-label="Search movies">
+    <button class="primary" id="searchBtn">Search</button>
+   </div>
+  </header>
+  <section class="hero" id="home">
+   <div class="hero-inner">
+    <div class="eyebrow">FADS+ MOVIE DISCOVERY</div>
+    <h1>Movies. Stories.
+     <br>
+     One place.</h1>
+    <p>നിങ്ങളുടെ പ്രിയപ്പെട്ട സിനിമകൾ കണ്ടെത്തൂ. ലഭ്യമായ ട്രെയിലറുകൾ FADS+ പേജിനുള്ളിൽ തന്നെ പ്ലേ ചെയ്യാം.</p>
+    <div class="hero-actions">
+     <button class="primary" onclick="document.querySelector('#trending').scrollIntoView()">Explore Movies</button>
+     <button class="secondary" onclick="document.querySelector('#apiSettings').scrollIntoView()">TMDB Setup</button>
+    </div>
+   </div>
+  </section>
+  <main>
+   <details class="api-panel" id="apiSettings">
+    <summary>TMDB API Setup</summary>
+    <div class="api-row">
+     <input id="apiKey" type="password" placeholder="Paste your TMDB API key (v3)">
+     <button class="primary" id="saveKey">Save &amp; Load Movies</button>
+    </div>
+    <div class="hint">നിങ്ങളുടെ TMDB v3 API key ഇവിടെ ചേർത്ത് Save അമർത്തുക. കീ ഈ ബ്രൗസറിലെ local storage-ൽ മാത്രം സൂക്ഷിക്കും. ഇത് മറ്റാരുമായും പങ്കിടരുത്. TMDB സിനിമാ വിവരങ്ങളും പോസ്റ്ററുകളും നൽകുന്നു; മുഴുവൻ സിനിമകൾ നൽകുന്നില്ല.</div>
+   </details>
+   <section id="searchResults" hidden>
+    <div class="section-head">
+     <h2>Search Results</h2>
+     <span class="sub" id="searchCount"></span>
+    </div>
+    <div class="grid" id="searchGrid"></div>
+   </section>
+   <section id="trending">
+    <div class="section-head">
+     <h2>Trending Movies</h2>
+     <span class="sub">Popular right now</span>
+    </div>
+    <div class="grid" id="trendingGrid">
+     <div class="empty">TMDB API key ചേർത്ത് Load Movies അമർത്തുക.</div>
+    </div>
+   </section>
+   <section id="popular">
+    <div class="section-head">
+     <h2>Popular Movies</h2>
+    </div>
+    <div class="grid" id="popularGrid">
+     <div class="empty">Movies ഇവിടെ കാണിക്കും.</div>
+    </div>
+   </section>
+   <section id="malayalam">
+    <div class="section-head">
+     <h2>Malayalam Movies</h2>
+    </div>
+    <div class="grid" id="malayalamGrid">
+     <div class="empty">Malayalam സിനിമകൾ ഇവിടെ കാണിക്കും.</div>
+    </div>
+   </section>
+  </main>
+  <section id="playerInfo" style="padding:18px 4%;margin:12px auto;max-width:1200px">
+   <div class="section-head">
+    <h2>FADS+ Video Player</h2>
+    <span class="sub">VLC-style controls</span>
+   </div>
+   <div class="notice">സിനിമയുടെ വിശദാംശങ്ങളിൽ “Watch inside FADS+” അമർത്തുമ്പോൾ കൃത്യമായി പൊരുത്തപ്പെടുന്ന, ലൈസൻസ് വിവരങ്ങളുള്ള സൗജന്യ MP4 ലഭ്യമാണെങ്കിൽ ഇവിടെ തന്നെ പ്ലേ ചെയ്യും. എല്ലാ സിനിമകൾക്കും സൗജന്യ full movie ലഭിക്കണമെന്നില്ല.</div>
+  </section>
+  <div class="modal" id="movieModal" role="dialog" aria-modal="true">
+   <div class="dialog">
+    <div class="detail-hero" id="detailHero">
+     <img id="detailPoster" alt="Movie poster">
+     <div class="detail">
+      <button class="close" id="closeModal" aria-label="Close">×</button>
+      <h2 id="detailTitle">Movie</h2>
+      <div class="sub" id="detailMeta"></div>
+      <p id="detailOverview"></p>
+      <div class="actions">
+       <button class="primary" id="trailerBtn">▶ Play Trailer on FADS+</button>
+       <button class="secondary" id="fullMovieBtn">▶ Watch inside FADS+</button>
+      </div>
+     </div>
+    </div>
+    <div class="content">
+     <div class="player-wrap" id="trailerPlayer"></div>
+     <div class="player-wrap" id="fullPlayer"></div>
+     <div class="notice" id="directMp4Panel" style="margin:14px 0">
+      <strong>▶ Play a legal MP4 inside FADS+</strong>
+      <p>നിങ്ങൾക്ക് ഉടമസ്ഥതയുള്ളതോ പ്ലേ ചെയ്യാൻ അനുമതിയുള്ളതോ ആയ നേരിട്ടുള്ള .mp4 വീഡിയോ ലിങ്ക് ഇവിടെ നൽകുക.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+       <input id="legalMp4Url" type="url" inputmode="url" placeholder="https://example.com/movie.mp4" aria-label="Legal MP4 video URL" style="flex:1;min-width:180px;padding:12px;border-radius:10px;border:1px solid #35435e;background:#151e30;color:#fff">
+       <button class="secondary" id="playLegalMp4" type="button">Play in FADS+</button>
+      </div>
+      <p id="legalMp4Status" class="sub" aria-live="polite">MP4 direct link മാത്രം നൽകുക. YouTube / webpage URL ഇവിടെ പ്രവർത്തിക്കില്ല.</p>
+     </div>
+     <div class="player-note" id="playerNote">ട്രെയിലറും ലഭ്യമായ നിയമപരമായ മുഴുനീള സിനിമകളും ഈ പേജിലെ പ്ലെയറിൽ തുറക്കും.</div>
+     <div class="notice">FADS+ ൽ നിന്ന് പുറത്തേക്ക് redirect ചെയ്യാതെ പ്ലേ ചെയ്യാൻ ശ്രമിക്കുന്നു. Full movie ലഭിക്കാൻ അതേ സിനിമയുടെ പേര്, വർഷം, Public Domain / Creative Commons ലൈസൻസ് വിവരങ്ങൾ, MP4 ഫയൽ എന്നിവ പൊരുത്തപ്പെടണം. ലഭ്യമല്ലെങ്കിൽ തെറ്റായ സിനിമ പ്ലേ ചെയ്യില്ല. YouTube trailer embedding-ന് ചില നിയന്ത്രണങ്ങൾ ഉണ്ടായേക്കാം.</div>
+    </div>
+   </div>
+  </div>
+  <footer>
+   FADS+ is a movie discovery project. Movie metadata and posters are provided by TMDB. FADS+ is not endorsed or certified by TMDB. Full-length playback is shown only when a suitable legal public-domain / Creative Commons source can be verified.
+   <br>
+   <strong>Made by Sudarsanan K R ❤️</strong>
+  </footer>
+  <script>
+const TMDB='https://api.themoviedb.org/3',IMG='https://image.tmdb.org/t/p/w500';let apiKey=localStorage.getItem('fads_tmdb_key')||'',selectedMovie=null;const $=id=>document.getElementById(id);$('apiKey').value=apiKey;
+function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function tmdb(path){if(!apiKey)throw Error('ആദ്യം TMDB API key ചേർക്കുക.');const r=await fetch(TMDB+path+(path.includes('?')?'&':'?')+'api_key='+encodeURIComponent(apiKey));if(!r.ok)throw Error('TMDB request failed: '+r.status);return r.json();}
+function movieCard(m){let title=m.title||m.name||'Untitled';return `<article class="movie" data-id="${m.id}"><img loading="lazy" src="${m.poster_path?IMG+m.poster_path:'https://placehold.co/400x600/172238/ffffff?text=No+Poster'}" alt="${esc(title)}"><div class="movie-info"><div class="movie-title">${esc(title)}</div><div class="movie-meta">${(m.release_date||'').slice(0,4)} · ★ ${m.vote_average?Number(m.vote_average).toFixed(1):'—'}</div></div></article>`;}
+function renderGrid(id,items){$(id).innerHTML=items&&items.length?items.map(movieCard).join(''):'<div class="empty">No movies found.</div>';}
+async function loadMovies(){try{$('trendingGrid').innerHTML='<div class="empty">Loading...</div>';let [t,p,ml]=await Promise.all([tmdb('/trending/movie/week?language=en-US'),tmdb('/movie/popular?language=en-US&page=1'),tmdb('/discover/movie?with_original_language=ml&sort_by=popularity.desc&language=en-US&page=1')]);renderGrid('trendingGrid',t.results||[]);renderGrid('popularGrid',p.results||[]);renderGrid('malayalamGrid',ml.results||[]);}catch(e){$('trendingGrid').innerHTML='<div class="empty">'+esc(e.message)+'</div>';}}
+async function searchMovies(){let q=$('searchInput').value.trim();if(!q)return;$('searchResults').hidden=false;$('searchGrid').innerHTML='<div class="empty">Searching...</div>';try{let d=await tmdb('/search/movie?query='+encodeURIComponent(q)+'&include_adult=false&language=en-US&page=1');renderGrid('searchGrid',d.results||[]);$('searchCount').textContent=(d.results||[]).length+' results';$('searchResults').scrollIntoView({behavior:'smooth'});}catch(e){$('searchGrid').innerHTML='<div class="empty">'+esc(e.message)+'</div>';}}
+async function openMovie(id){try{let [m,v]=await Promise.all([tmdb('/movie/'+id+'?language=en-US'),tmdb('/movie/'+id+'/videos?language=en-US')]);selectedMovie=m;$('detailTitle').textContent=m.title||'Movie';$('detailPoster').src=m.poster_path?IMG+m.poster_path:'https://placehold.co/400x600/172238/ffffff?text=No+Poster';$('detailOverview').textContent=m.overview||'വിവരണം ലഭ്യമല്ല.';$('detailMeta').textContent=(m.release_date||'').slice(0,4)+' · ★ '+(m.vote_average?m.vote_average.toFixed(1):'—')+(m.runtime?' · '+m.runtime+' min':'');$('trailerPlayer').className='player-wrap';$('trailerPlayer').innerHTML='';$('fullPlayer').className='player-wrap';$('fullPlayer').innerHTML='';let tr=(v.results||[]).find(x=>x.site==='YouTube'&&x.type==='Trailer'&&x.key)||(v.results||[]).find(x=>x.site==='YouTube'&&x.key);$('trailerBtn').disabled=!tr;$('trailerBtn').dataset.key=tr?tr.key:'';$('movieModal').classList.add('show');}catch(e){alert(e.message);}}
+function closeModal(){$('movieModal').classList.remove('show');$('trailerPlayer').innerHTML='';$('fullPlayer').innerHTML='';}
+$('saveKey').onclick=()=>{apiKey=$('apiKey').value.trim();if(!apiKey){alert('TMDB API key ചേർക്കുക.');return;}localStorage.setItem('fads_tmdb_key',apiKey);loadMovies();};$('searchBtn').onclick=searchMovies;$('searchInput').addEventListener('keydown',e=>{if(e.key==='Enter')searchMovies();});document.body.addEventListener('click',e=>{let c=e.target.closest('.movie');if(c)openMovie(c.dataset.id);});$('closeModal').onclick=closeModal;$('movieModal').addEventListener('click',e=>{if(e.target===$('movieModal'))closeModal();});document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+$('trailerBtn').onclick=()=>{let key=$('trailerBtn').dataset.key;if(!key)return;$('fullPlayer').className='player-wrap';$('fullPlayer').innerHTML='';$('trailerPlayer').className='player-wrap show';const siteOrigin=location.origin;const pageUrl=location.href;const embedUrl='https://www.youtube.com/embed/'+encodeURIComponent(key)+'?autoplay=1&playsinline=1&rel=0&enablejsapi=1&origin='+encodeURIComponent(siteOrigin)+'&widget_referrer='+encodeURIComponent(pageUrl);$('trailerPlayer').innerHTML=`<iframe src="${embedUrl}" title="Movie trailer" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="origin"></iframe>`;$('playerNote').textContent='Trailer FADS+ വെബ്സൈറ്റിനുള്ളിൽ പ്ലേ ചെയ്യാൻ ശ്രമിക്കുന്നു. Error 153 തുടരുകയോ “embedding disabled” കാണിക്കുകയോ ചെയ്താൽ ആ trailer-ന് YouTube നിയന്ത്രണമുണ്ടാകാം.';};
+ 
+ 
+function playFadsVlc(container,src,title,year){
+ const safeTitle=esc(title||'Movie'),safeYear=esc(year||'');
+ container.className='player-wrap show';
+ container.innerHTML=`<div class="fads-vlc" id="fadsVlc">
+ <div class="vlc-title">▶ FADS+ Player — ${safeTitle} ${safeYear?'('+safeYear+')':''}</div>
+ <video id="fadsVideo" playsinline preload="metadata" src="${src}"></video>
+ <div class="vlc-controls">
+ <button type="button" id="vlcPlay">▶ Play</button>
+ <span class="vlc-time" id="vlcTime">00:00 / 00:00</span>
+ <input id="vlcSeek" type="range" min="0" max="1000" value="0" aria-label="Seek">
+ <button type="button" id="vlcMute">🔊</button>
+ <input id="vlcVolume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+ <select id="vlcSpeed" aria-label="Playback speed"><option value=".5">0.5×</option><option value=".75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+ <button type="button" id="vlcFull">⛶ Full screen</button>
+ </div></div>`;
+ const v=$('fadsVideo'),play=$('vlcPlay'),seek=$('vlcSeek'),time=$('vlcTime'),volume=$('vlcVolume');
+ const fmt=t=>{if(!Number.isFinite(t))return '00:00';let n=Math.floor(t);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');};
+ play.onclick=()=>v.paused?v.play().catch(()=>{}):v.pause();
+ v.addEventListener('play',()=>play.textContent='❚❚ Pause');
+ v.addEventListener('pause',()=>play.textContent='▶ Play');
+ v.addEventListener('timeupdate',()=>{if(v.duration){seek.value=String(Math.round(v.currentTime/v.duration*1000));time.textContent=fmt(v.currentTime)+' / '+fmt(v.duration);}});
+ v.addEventListener('loadedmetadata',()=>time.textContent=fmt(v.currentTime)+' / '+fmt(v.duration));
+ v.addEventListener('error',()=>{container.insertAdjacentHTML('beforeend','<div class="empty">ഈ വീഡിയോ ഉറവിടത്തിൽ നിന്ന് പ്ലേ ചെയ്യാൻ കഴിഞ്ഞില്ല. മറ്റൊരു നിയമപരമായ വീഡിയോ തിരഞ്ഞെടുക്കുക.</div>');});
+ seek.oninput=()=>{if(v.duration)v.currentTime=Number(seek.value)/1000*v.duration;};
+ volume.oninput=()=>{v.volume=Number(volume.value);v.muted=v.volume===0;$('vlcMute').textContent=v.muted?'🔇':'🔊';};
+ $('vlcMute').onclick=()=>{v.muted=!v.muted;$('vlcMute').textContent=v.muted?'🔇':'🔊';};
+ $('vlcSpeed').onchange=e=>v.playbackRate=Number(e.target.value);
+ $('vlcFull').onclick=()=>{let box=$('fadsVlc');if(document.fullscreenElement)document.exitFullscreen?.();else box.requestFullscreen?.();};
+}
+ 
+function norm(s){return String(s||'').toLowerCase().normalize('NFKD').replace(/[^\p{L}\p{N}]+/gu,' ').trim().replace(/\s+/g,' ');}
+async function findLegalFullMovie(m){$('trailerPlayer').className='player-wrap';$('trailerPlayer').innerHTML='';$('fullPlayer').className='player-wrap show';$('fullPlayer').innerHTML='<div class="empty">നിയമപരമായ full movie ഉറവിടം പരിശോധിക്കുന്നു...</div>';let year=(m.release_date||'').slice(0,4),title=norm(m.title);try{let q=encodeURIComponent('title:('+m.title.replace(/[():"]/g,' ')+') AND mediatype:movies');let r=await fetch('https://archive.org/advancedsearch.php?q='+q+'&fl[]=identifier,title,year&rows=30&page=1&output=json');if(!r.ok)throw Error();let docs=(await r.json()).response?.docs||[];for(let d of docs){if(norm(d.title)!==title)continue;if(year&&String(d.year||'').slice(0,4)!==year)continue;let mr=await fetch('https://archive.org/metadata/'+encodeURIComponent(d.identifier));if(!mr.ok)continue;let meta=await mr.json(),lic=String(meta.metadata?.licenseurl||meta.metadata?.license||'').toLowerCase(),rights=String(meta.metadata?.rights||'').toLowerCase();if(!/creativecommons\.org|public.?domain|cc0/.test(lic+' '+rights))continue;let f=(meta.files||[]).find(x=>/\.mp4$/i.test(x.name||'')&&Number(x.size||0)>1000000);if(!f)continue;let src='https://archive.org/download/'+encodeURIComponent(d.identifier)+'/'+f.name.split('/').map(encodeURIComponent).join('/');playFadsVlc($('fullPlayer'),src,d.title,d.year||'');$('fullPlayer').insertAdjacentHTML('beforeend',`<div class="player-note">Archive.org item: ${esc(d.title)} (${esc(d.year||'year unknown')}). Source license metadata indicates public-domain / Creative Commons. FADS+ player streams this video from the legal source.</div>`);$('playerNote').textContent='നിയമപരമായ ഉറവിടത്തിൽ ലഭിച്ച വീഡിയോ FADS+ പേജിനുള്ളിലെ player-ൽ തുറന്നു.';return;}$('fullPlayer').innerHTML='<div class="empty">ഈ സിനിമയുടെ അതേ പേരും വർഷവും പൊരുത്തപ്പെടുന്ന, ലൈസൻസ് പരിശോധിക്കാവുന്ന full-length വീഡിയോ കണ്ടെത്തിയില്ല. തെറ്റായ സിനിമയോ trailer-ഓ പ്ലേ ചെയ്തിട്ടില്ല.</div>';}catch(e){$('fullPlayer').innerHTML='<div class="empty">Full movie ഉറവിടം ഇപ്പോൾ പരിശോധിക്കാൻ കഴിഞ്ഞില്ല. പിന്നീട് വീണ്ടും ശ്രമിക്കുക.</div>';}}
+$('fullMovieBtn').onclick=()=>{if(selectedMovie){$('playerNote').textContent='FADS+ ൽ തന്നെ പ്ലേ ചെയ്യാൻ നിയമപരമായ വീഡിയോ പരിശോധിക്കുന്നു...';findLegalFullMovie(selectedMovie);}};if(apiKey)loadMovies();
+</script>
+  <script>
+(function(){
+  const btn=document.getElementById('playLegalMp4');
+  const input=document.getElementById('legalMp4Url');
+  const status=document.getElementById('legalMp4Status');
+  if(!btn||!input||!status) return;
+  btn.addEventListener('click',function(){
+    const raw=input.value.trim();
+    let u;
+    try { u=new URL(raw); } catch(e) {
+      status.textContent='ശരിയായ https:// MP4 ലിങ്ക് നൽകുക.';
+      return;
+    }
+    if(u.protocol!=='https:' && u.protocol!=='http:') {
+      status.textContent='http അല്ലെങ്കിൽ https ലിങ്ക് മാത്രം അനുവദിക്കുന്നു.';
+      return;
+    }
+    if(!/\\.mp4($|[?#])/i.test(u.pathname+u.search+u.hash)) {
+      status.textContent='ഇത് നേരിട്ടുള്ള .mp4 ഫയൽ ലിങ്ക് അല്ലെന്ന് തോന്നുന്നു. MP4 direct URL നൽകുക.';
+      return;
+    }
+    const host=document.getElementById('fullPlayer') || document.getElementById('trailerPlayer') || document.getElementById('mainFadsPlayer');
+    if(!host) {
+      status.textContent='Player container കണ്ടെത്താനായില്ല. പഴയ VLC player section നിലനിർത്തി വീണ്ടും ശ്രമിക്കുക.';
+      return;
+    }
+    host.classList.add('show');
+    host.innerHTML='<div class="fads-vlc" id="fadsVlc"><div class="vlc-title">▶ FADS+ Player — Legal MP4</div><video id="fadsVideo" playsinline controls preload="metadata"></video><div class="vlc-controls"><button type="button" id="vlcPlay">▶ Play</button><span id="vlcTime">00:00 / 00:00</span><input id="vlcSeek" type="range" min="0" max="1000" value="0" aria-label="Seek video"><button type="button" id="vlcMute">🔊</button><input id="vlcVolume" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume"><select id="vlcSpeed" aria-label="Playback speed"><option value="0.5">0.5×</option><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><button type="button" id="vlcFull">⛶ Full screen</button></div></div>';
+    const v=document.getElementById('fadsVideo');
+    v.src=u.href;
+    const play=document.getElementById('vlcPlay'),seek=document.getElementById('vlcSeek'),
+      time=document.getElementById('vlcTime'),vol=document.getElementById('vlcVolume'),
+      mute=document.getElementById('vlcMute'),speed=document.getElementById('vlcSpeed'),
+      full=document.getElementById('vlcFull');
+    const fmt=t=>{if(!Number.isFinite(t))return '00:00';const n=Math.floor(t);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0');};
+    play.onclick=()=>{if(v.paused){v.play().catch(()=>status.textContent='ഈ MP4 ഉറവിടം browser playback അനുവദിക്കുന്നില്ല. ലിങ്ക്/അനുമതി പരിശോധിക്കുക.');}else v.pause();};
+    v.onplay=()=>play.textContent='Ⅱ Pause'; v.onpause=()=>play.textContent='▶ Play';
+    v.ontimeupdate=()=>{time.textContent=fmt(v.currentTime)+' / '+fmt(v.duration);if(Number.isFinite(v.duration)&&v.duration>0)seek.value=String(v.currentTime/v.duration*1000);};
+    seek.oninput=()=>{if(Number.isFinite(v.duration)&&v.duration>0)v.currentTime=Number(seek.value)/1000*v.duration;};
+    vol.oninput=()=>{v.volume=Number(vol.value);v.muted=false;mute.textContent='🔊';};
+    mute.onclick=()=>{v.muted=!v.muted;mute.textContent=v.muted?'🔇':'🔊';};
+    speed.onchange=()=>v.playbackRate=Number(speed.value);
+    full.onclick=()=>{const box=document.getElementById('fadsVlc');if(document.fullscreenElement)document.exitFullscreen?.();else box.requestFullscreen?.();};
+    v.onerror=()=>status.textContent='വീഡിയോ തുറക്കാനായില്ല. ലിങ്ക് നേരിട്ടുള്ള MP4 ആണോ, ഉറവിടം CORS / hotlink നിയന്ത്രണമില്ലാതെ video playback അനുവദിക്കുന്നുണ്ടോ എന്ന് പരിശോധിക്കുക.';
+    v.play().then(()=>status.textContent='വീഡിയോ FADS+ player-ൽ തുറന്നു.').catch(()=>status.textContent='Play അമർത്തി തുടങ്ങുക. ചില browser-ുകളിൽ autoplay തടയാം.');
+    status.textContent='MP4 ലോഡ് ചെയ്യുന്നു…';
+    host.scrollIntoView({behavior:'smooth',block:'center'});
+  });
+})();
+</script>
+ </body>
+</html>
