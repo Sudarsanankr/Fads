@@ -1,0 +1,35 @@
+FADS+ Android APK preparation
+
+Upload these files/folders to the ROOT of GitHub repository Sudarsanankr/Fads:
+- manifest.webmanifest
+- service-worker.js
+- icons/icon-192.png
+- icons/icon-512.png
+
+Add inside the <head> section of index.html:
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#080b14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+
+Add just before </body>:
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js").catch(console.error);
+  });
+}
+</script>
+
+Commit to GitHub main. Cloudflare Pages should redeploy automatically.
+Then test:
+https://fadsplus.pages.dev/manifest.webmanifest
+https://fadsplus.pages.dev/service-worker.js
+
+When those load correctly, open https://www.pwabuilder.com/ in Chrome,
+enter https://fadsplus.pages.dev and use its Android package workflow.
+Review app identity and signing details before generating.
+
+This ZIP is a PWA setup kit, not a compiled APK. The APK is generated after
+the website files are deployed and validated. YouTube embed availability
+still depends on YouTube's rules and the video owner's settings.
