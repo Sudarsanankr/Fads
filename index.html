@@ -279,5 +279,68 @@ try{
  if(tmdbKey)loadTrending();
 }catch(e){}
 </script>
- </body>
+ 
+<script>
+(() => {
+  const WORKER = "https://fadsplus-api.sudarsanankr49.workers.dev";
+  const originalFetch = window.fetch.bind(window);
+
+  window.fetch = (input, init) => {
+    const raw = typeof input === "string" ? input : input.url;
+    let url;
+
+    try {
+      url = new URL(raw, location.href);
+    } catch {
+      return originalFetch(input, init);
+    }
+
+    if (
+      url.origin === "https://api.themoviedb.org" &&
+      url.pathname.startsWith("/3/")
+    ) {
+      const target = new URL(
+        WORKER + "/tmdb/3" + url.pathname.replace(/^\/3/, "")
+      );
+
+      url.searchParams.forEach((value, key) => {
+        if (key !== "api_key") target.searchParams.set(key, value);
+      });
+
+      return originalFetch(target.toString(), init);
+    }
+
+    if (
+      url.origin === "https://www.googleapis.com" &&
+      url.pathname.startsWith("/youtube/v3/")
+    ) {
+      url.searchParams.delete("key");
+      const target = new URL(WORKER + url.pathname);
+      url.searchParams.forEach((value, key) => {
+        target.searchParams.set(key, value);
+      });
+
+      return originalFetch(target.toString(), init);
+    }
+
+    return originalFetch(input, init);
+  };
+
+  try {
+    localStorage.removeItem("fads_yt_key");
+    localStorage.removeItem("fads_tmdb_key");
+  } catch (e) {}
+
+  tmdbKey = "worker-managed";
+  ytKey = "worker-managed";
+
+  const panel = document.querySelector("details.api");
+  if (panel) panel.hidden = true;
+
+  setStatus("🔒 Secure API connected. Loading movies...");
+  loadTrending();
+})();
+</script>
+
+</body>
 </html>
