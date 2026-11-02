@@ -336,6 +336,8 @@ try{
 
   const panel = document.querySelector("details.api");
   if (panel) panel.hidden = true;
+const notice = document.getElementById("hostingNotice");
+if (notice) notice.hidden = true;
 
   setStatus("🔒 Secure API connected. Loading movies...");
   loadTrending();
