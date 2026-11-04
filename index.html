@@ -142,11 +142,11 @@ function resetRecaptcha() {
 }
 function setupRecaptcha() {
  if (recaptchaVerifier) return;
- recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
   size: 'normal',
   callback: () => loginStatus('Verification complete. Press Get OTP.'),
   'expired-callback': () => loginStatus('reCAPTCHA expired. Please verify again.', true)
- }, auth);
+});
  recaptchaVerifier.render().catch(error => loginStatus(error.message, true));
 }
 setupRecaptcha();
