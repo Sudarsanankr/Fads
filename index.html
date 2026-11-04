@@ -113,7 +113,7 @@ document.getElementById('googleLoginBtn').addEventListener('click',async()=>{
  button.disabled=true;button.textContent='Opening Google Login…';
  try{
   await auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-  await auth.signInWithRedirect(provider);
+  await auth.signInWithPopup(provider);
  }catch(error){
   loginStatus(error.message||'Google Login failed.',true);
   button.disabled=false;button.textContent='🌐 Continue with Google';
