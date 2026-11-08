@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="ml">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090713">
+  <title>FADS+ Premium | Movie Discovery</title>
+  <style>
+:root{--bg:#090713;--panel:#171326;--panel2:#211735;--line:#39294d;--pink:#ff3eaa;--violet:#8c45ff;--text:#fff;--muted:#b9afc9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 10% 0%,#68205c55,transparent 35%),radial-gradient(ellipse at 95% 15%,#48218b55,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,"Noto Sans Malayalam",sans-serif;padding-bottom:78px}
+.wrap{max-width:1200px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;padding:8px 0 16px;border-bottom:1px solid #ffffff18}
+.brand{font-size:1.5rem;font-weight:950;letter-spacing:-1px}.logo{display:inline-grid;place-items:center;width:42px;height:42px;border-radius:13px;background:linear-gradient(135deg,var(--pink),var(--violet));margin-right:8px}
+.grad{background:linear-gradient(90deg,#ff75c8,#b49aff);color:transparent;background-clip:text}.live{font-size:.72rem;color:#ff83c8;font-weight:900;letter-spacing:1px}
+.hero{margin:22px 0 30px;padding:clamp(25px,5vw,58px);border:1px solid #ffffff20;border-radius:26px;min-height:300px;background:linear-gradient(90deg,#0b0814f5,#170e25c9 65%,#2c1247a0),radial-gradient(circle at 80% 40%,#b32991,#25123c);position:relative;overflow:hidden}
+.hero:after{content:"FADS+";position:absolute;right:3%;bottom:-35px;font-size:clamp(6rem,18vw,14rem);font-weight:1000;color:#ffffff0a;z-index:0}.hero>*{position:relative;z-index:1}
+.eyebrow{color:#ff8dcc;font-size:.75rem;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(2.5rem,7vw,5.5rem);line-height:.98;letter-spacing:-2px;margin:12px 0}.hero p{max-width:600px;color:#d0c5dc}
+.search,.chips{display:flex;gap:9px;flex-wrap:wrap;margin:14px 0}input{flex:1;min-width:160px;padding:14px;background:#100c1b;border:1px solid var(--line);border-radius:13px;color:white;font:inherit;outline:none}input:focus{border-color:#b46cff}
+button{font:inherit;cursor:pointer;color:white;border-radius:12px;padding:11px 15px;border:1px solid var(--line);background:#211832}.primary{border:0;background:linear-gradient(110deg,var(--pink),var(--violet));font-weight:850}.chip{font-size:.85rem}.chip.active{background:linear-gradient(110deg,#a62b82,#6337b5);border-color:#e66ac4}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:30px 0 13px}.section-head h2{margin:0;font-size:1.45rem}.muted,.artist,.status{color:var(--muted)}.artist{font-size:.82rem}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.card{background:linear-gradient(150deg,#201832,#12101d);border:1px solid #ffffff15;border-radius:17px;padding:9px;min-width:0;overflow:hidden}.card img{width:100%;display:block;object-fit:cover;border-radius:11px;background:#292139}.poster{aspect-ratio:2/3}.thumb{aspect-ratio:16/9}.movie-title{font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:8px}.play{width:100%;margin-top:10px;background:#2b1c40;border-color:#69428b}.empty{grid-column:1/-1;padding:24px;text-align:center;border:1px dashed #5b496c;border-radius:14px;color:var(--muted)}
+.watch{margin-top:24px;border:1px solid #54376c;border-radius:18px;overflow:hidden;background:#100d18}.watch-head{padding:14px 16px;background:#211630;font-weight:850}.frame{aspect-ratio:16/9;background:#000;position:relative}.frame iframe,.frame video{position:absolute;inset:0;width:100%;height:100%;border:0}.watch-actions{display:flex;gap:8px;padding:10px}.watch-actions button{flex:1}
+.notice{margin:20px 0;padding:14px;border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:.82rem;background:#120e1d}.bar{position:fixed;bottom:0;left:0;right:0;z-index:5;display:flex;gap:10px;align-items:center;padding:9px 16px;background:#100b1cf2;border-top:1px solid #633e7e;backdrop-filter:blur(12px)}.bar span{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar button{width:43px;height:42px;padding:0}
+a{color:#ff9ad8}footer{text-align:center;color:var(--muted);padding:25px 10px 100px}
+@media(min-width:850px){.grid{grid-template-columns:repeat(5,minmax(0,1fr))}}@media(max-width:600px){.wrap{padding:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.hero{padding:24px 18px;min-height:320px}.hero h1{letter-spacing:-1px}.section-head h2{font-size:1.2rem}.search input{min-width:0;width:100%}}
+</style>
+ </head>
+ <body>
+  <main class="wrap">
+   <header class="top">
+    <div class="brand">
+     <span class="logo">🎬</span>FADS <span class="grad">PLUS</span>
+    </div>
+    <span class="live">● PREMIUM MOVIE DISCOVERY</span>
+   </header>
+   <section class="hero">
+    <div class="eyebrow">DISCOVER · WATCH · ENJOY</div>
+    <h1>Stories worth
+     <br>
+     <span class="grad">staying up for.</span></h1>
+    <p>Explore movies across languages, discover mythology series and watch official videos in the FADS+ player.</p>
+    <form class="search" id="searchForm">
+     <input id="q" placeholder="Search movies…" autocomplete="off">
+     <button class="primary">Search ↗</button>
+    </form>
+    <div class="chips" id="langs">
+     <button class="chip active" type="button" data-lang="ml">Malayalam</button>
+     <button class="chip" type="button" data-lang="ta">Tamil</button>
+     <button class="chip" type="button" data-lang="hi">Hindi</button>
+     <button class="chip" type="button" data-lang="kn">Kannada</button>
+     <button class="chip" type="button" data-lang="te">Telugu</button>
+     <button class="chip" type="button" data-lang="en">English</button>
+    </div>
+    <div class="status" id="status">Connecting to movie database…</div>
+   </section>
+   <section>
+    <div class="section-head">
+     <h2 id="resultTitle">Malayalam Movies</h2>
+     <span class="muted" id="count"></span>
+    </div>
+    <div class="grid" id="movies">
+     <div class="empty">Loading movies…</div>
+    </div>
+   </section>
+   <section>
+    <div class="section-head">
+     <h2>Mythology Series</h2>
+     <span class="muted">Krishna · Shiva · Rama · Hanuman</span>
+    </div>
+    <p class="artist">മഹാഭാരതം, രാമായണം, ഭക്തി പരമ്പരകൾക്കായി പ്രത്യേക വിഭാഗം.</p>
+    <div class="grid" id="myth">
+     <div class="empty">Loading series…</div>
+    </div>
+   </section>
+   <section>
+    <div class="section-head">
+     <h2 id="videoTitle">Official YouTube Videos</h2>
+     <span class="muted" id="videoCount"></span>
+    </div>
+    <div class="chips">
+     <button class="primary" type="button" id="trailer">▶ Find Trailer</button>
+     <button type="button" id="full">▶ Strict Full Movie Search</button>
+    </div>
+    <p class="artist">Full Movie mode: requires a full-movie label, matching film title, 70+ minute duration, embeddable status and a likely studio/distributor channel. Reviews, clips, trailers and shorts are filtered. Metadata filters cannot prove rights or completeness.</p>
+    <div class="grid" id="videos">
+     <div class="empty">Choose a movie or series first.</div>
+    </div>
+   </section>
+   <section class="watch" id="watch">
+    <div class="watch-head" id="watchTitle">FADS+ YouTube Player</div>
+    <div class="frame" id="frame">
+     <div style="height:100%;display:grid;place-items:center;color:#aaa">Choose a video to play here.</div>
+    </div>
+    <div class="watch-actions">
+     <button type="button" id="fs">⛶ Full screen</button>
+     <button type="button" id="stop">■ Stop</button>
+    </div>
+   </section>
+   <section class="watch" id="legalDirect">
+    <div class="watch-head">⚖️ Legal Direct Play · Internet Archive</div>
+    <div style="padding:13px">
+     <p class="artist">Public Domain / Creative Commons എന്ന് രേഖപ്പെടുത്തിയ MP4 വീഡിയോകൾ കണ്ടെത്തും. അവകാശം source page-ൽ പരിശോധിക്കുക.</p>
+     <form class="search" id="archiveForm">
+      <input id="archiveQ" value="public domain film" placeholder="Search legal films…">
+      <button class="primary">Search ↗</button>
+     </form>
+     <div class="status" id="archiveStatus">Search to discover legal-source videos.</div>
+     <div class="grid" id="archiveResults"></div>
+    </div>
+   </section>
+   <section class="watch" id="directPlayer">
+    <div class="watch-head" id="directTitle">FADS+ Legal Direct Player</div>
+    <div class="frame" id="directFrame">
+     <div style="height:100%;display:grid;place-items:center;color:#aaa">Choose a legal-source video to play here.</div>
+    </div>
+    <div class="watch-actions">
+     <button type="button" id="directFs">⛶ Full screen</button>
+     <button type="button" id="directStop">■ Stop</button>
+    </div>
+   </section>
+   <div class="notice">
+    <b>Playback &amp; rights note:</b> YouTube metadata cannot guarantee that an upload is a complete, licensed movie or that a channel is the rights-holder. FADS+ uses strict title, duration, embeddable-status and likely studio-channel filters; verify the source channel. Some owners disable embedding. YouTube may still show its own player controls or end-screen suggestions.
+   </div>
+  </main>
+  <footer>
+   Made by <b style="color:white">Sudarsanan K R</b> ❤️
+  </footer>
+  <div class="bar">
+   <span id="now">Nothing playing yet</span>
+   <button id="barStop" aria-label="Stop">■</button>
+   <button id="barGo" aria-label="Go to player">▶</button>
+  </div>
+  <script>
+'use strict';
+const $=id=>document.getElementById(id);
+const API='https://fadsplus-api.sudarsanankr49.workers.dev',TMDB=API+'/tmdb/3',YT=API+'/youtube/v3',IMG='https://image.tmdb.org/t/p/w500',IA='https://archive.org';
+let selected=null,videos=[],currentTitle='';
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function fetchJson(url,label){const c=new AbortController(),t=setTimeout(()=>c.abort(),15000);try{const r=await fetch(url,{signal:c.signal,headers:{Accept:'application/json'}}),raw=await r.text();let d;try{d=raw?JSON.parse(raw):{};}catch{throw Error(label+' returned invalid JSON (HTTP '+r.status+').');}if(!r.ok)throw Error(d.status_message||d.error?.message||d.error||label+' HTTP '+r.status);return d;}catch(e){if(e.name==='AbortError')throw Error(label+' timed out.');if(e instanceof TypeError)throw Error(label+' connection failed.');throw e;}finally{clearTimeout(t);}}
+const api=p=>fetchJson(TMDB+p,'TMDB');
+function card(item,series=false){const title=item.title||item.name||'Untitled',poster=item.poster_path?IMG+item.poster_path:'https://placehold.co/400x600/211a2d/fff?text=No+Poster',date=(item.release_date||item.first_air_date||'').slice(0,4),attr=series?`data-series="${esc(title)}"`:`data-id="${esc(item.id)}"`;return `<article class="card"><img class="poster" loading="lazy" src="${esc(poster)}" alt="${esc(title)}"><div class="movie-title">${esc(title)}</div><div class="artist">${esc(date)} · ★ ${Number(item.vote_average||0).toFixed(1)}</div><button class="play" type="button" ${attr}>Choose ${series?'series':'movie'}</button></article>`;}
+function renderMovies(items){$('movies').innerHTML=items.length?items.map(x=>card(x)).join(''):'<div class="empty">No movies found.</div>';$('count').textContent=items.length+' movies';}
+async function loadLang(lang){const names={ml:'Malayalam',ta:'Tamil',hi:'Hindi',kn:'Kannada',te:'Telugu',en:'English'},name=names[lang]||'Malayalam';document.querySelectorAll('[data-lang]').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));$('resultTitle').textContent=name+' Movies';$('status').textContent='Loading…';$('movies').innerHTML='<div class="empty">Loading…</div>';try{const d=await api('/discover/movie?with_original_language='+encodeURIComponent(lang)+'&sort_by=primary_release_date.desc&include_adult=false&page=1');renderMovies(d.results||[]);$('status').textContent=name+' movies loaded';}catch(e){$('status').textContent=e.message;$('movies').innerHTML='<div class="empty">'+esc(e.message)+'</div>';}}
+const mythTitles=['RadhaKrishn','Devon Ke Dev Mahadev','Mahabharat','Ramayan','Shani','The Legend of Hanuman','Siya Ke Ram','Vighnaharta Ganesh'];
+async function loadMyth(){const found=await Promise.all(mythTitles.map(async title=>{try{return (await api('/search/tv?query='+encodeURIComponent(title))).results?.[0]||null;}catch{return null;}}));const seen=new Set(),items=found.filter(x=>x&&!seen.has(x.id)&&seen.add(x.id));$('myth').innerHTML=items.length?items.map(x=>card(x,true)).join(''):'<div class="empty">Mythology series could not load.</div>';}
+$('langs').addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(b)loadLang(b.dataset.lang);});
+$('movies').addEventListener('click',async e=>{const b=e.target.closest('[data-id]');if(!b)return;try{selected=await api('/movie/'+encodeURIComponent(b.dataset.id)+'?language=en-US');$('videoTitle').textContent=(selected.title||'Movie')+' — YouTube';$('videos').innerHTML='<div class="empty">Choose Trailer or Strict Full Movie Search.</div>';$('videoTitle').scrollIntoView({behavior:'smooth'});}catch(err){$('status').textContent=err.message;}});
+$('myth').addEventListener('click',e=>{const b=e.target.closest('[data-series]');if(!b)return;selected={title:b.dataset.series};$('videoTitle').textContent=selected.title+' — YouTube';$('videos').innerHTML='<div class="empty">Choose Trailer or Strict Full Movie Search.</div>';$('videoTitle').scrollIntoView({behavior:'smooth'});});
+$('searchForm').addEventListener('submit',async e=>{e.preventDefault();const q=$('q').value.trim();if(!q)return;$('movies').innerHTML='<div class="empty">Searching…</div>';try{const d=await api('/search/movie?query='+encodeURIComponent(q)+'&include_adult=false');$('resultTitle').textContent='Results: '+q;renderMovies(d.results||[]);}catch(err){$('movies').innerHTML='<div class="empty">'+esc(err.message)+'</div>';}});
+ 
+// Full-movie mode is intentionally conservative. A channel-name allowlist is a heuristic,
+// not proof of ownership. Add verified rights-holder channel names to this list as needed.
+// Conservative YouTube full-movie discovery. Metadata filters are not rights verification.
+const STUDIO_CHANNEL_HINTS=['official','movies','films','studios','pictures','entertainment','production','cinema','disney','warner','sony','universal','paramount','t-series','shemaroo','eros','rajshri','sun tv','zee','ultra','suresh productions','aha','hoichoi','manorama','saina','mango','aditya music','think music','goldmines','star maa','hotstar','mubi'];
+const BLOCKED_TERMS=['review','reviews','reaction','explained','breakdown','ranking','leak','rumour','fan made','shorts','status video','teaser','trailer','recap','movie facts','ending explained','top 10','best scenes','scene','edit','song','songs','making','interview','commentary','clips','clip','deleted scene','behind the scenes','promo'];
+const FULL_MOVIE_TERMS=['full movie','full film','complete movie','complete film','full length movie','full-length movie','feature film'];
+function normalizeText(s){return String(s||'').toLowerCase().normalize('NFKD').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();}
+function titleMatchesFilm(videoTitle,film){const a=normalizeText(videoTitle),b=normalizeText(film);if(!a||!b)return false;if(a.includes(b))return true;const words=b.split(' ').filter(w=>w.length>2);return words.length>0&&words.every(w=>a.includes(w));}
+function hasFullMovieLabel(title){const t=normalizeText(title);return FULL_MOVIE_TERMS.some(term=>t.includes(term));}
+function hasBlockedLabel(title){const t=normalizeText(title);return BLOCKED_TERMS.some(term=>t.includes(term));}
+function parseDuration(iso){const m=String(iso||'').match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);return m?(+(m[1]||0)*3600+ +(m[2]||0)*60+ +(m[3]||0)):0;}
+function durationLabel(s){return Math.floor(s/3600)+'h '+Math.floor(s%3600/60)+'m';}
+function likelyStudioChannel(channel){const c=normalizeText(channel);return STUDIO_CHANNEL_HINTS.some(h=>c.includes(normalizeText(h)));}
+async function findVideos(full){
+ if(!selected){$('status').textContent='Choose a movie or series first.';return;}
+ const film=selected.title||selected.name||'movie';
+ $('videos').innerHTML='<div class="empty">Searching for complete, long-form movie uploads…</div>';
+ $('videoCount').textContent='';
+ try{
+  let items=[];
+  if(full){
+   const queries=[`"${film}" full movie`,`"${film}" complete movie`,`"${film}" full film`];
+   const batches=await Promise.all(queries.map(async q=>{
+    const params=new URLSearchParams({part:'snippet',q,type:'video',maxResults:'50',videoEmbeddable:'true',videoSyndicated:'true',safeSearch:'strict'});
+    const d=await fetchJson(YT+'/search?'+params,'YouTube');return d.items||[];
+   }));
+   const unique=new Map();batches.flat().forEach(v=>{if(v.id?.videoId&&!unique.has(v.id.videoId))unique.set(v.id.videoId,v);});
+   items=[...unique.values()].filter(v=>{const title=v.snippet?.title||'',channel=v.snippet?.channelTitle||'';return titleMatchesFilm(title,film)&&hasFullMovieLabel(title)&&!hasBlockedLabel(title)&&likelyStudioChannel(channel);});
+   if(items.length){
+    const ids=items.map(v=>v.id.videoId),details=[];
+    for(let i=0;i<ids.length;i+=50){const params=new URLSearchParams({part:'contentDetails,status',id:ids.slice(i,i+50).join(',')});const d=await fetchJson(YT+'/videos?'+params,'YouTube video details');details.push(...(d.items||[]));}
+    const byId=new Map(details.map(v=>[v.id,v]));
+    items=items.filter(v=>{const d=byId.get(v.id.videoId);return !!d&&d.status?.embeddable===true&&parseDuration(d.contentDetails?.duration)>=70*60;})
+      .map(v=>({...v,_duration:parseDuration(byId.get(v.id.videoId).contentDetails?.duration)}))
+      .sort((a,b)=>b._duration-a._duration);
+   }
+  }else{
+   const params=new URLSearchParams({part:'snippet',q:`"${film}" official trailer`,type:'video',maxResults:'30',videoEmbeddable:'true',videoSyndicated:'true',safeSearch:'strict'});
+   const d=await fetchJson(YT+'/search?'+params,'YouTube');items=(d.items||[]).filter(v=>v.id?.videoId&&!hasBlockedLabel(v.snippet?.title||''));
+  }
+  videos=items;$('videoCount').textContent=videos.length+' matching videos';
+  $('videos').innerHTML=videos.length?videos.map((v,i)=>`<article class="card"><img class="thumb" loading="lazy" src="${esc(v.snippet?.thumbnails?.high?.url||'')}" alt=""><div class="movie-title">${esc(v.snippet?.title||'YouTube video')}</div><div class="artist">${esc(v.snippet?.channelTitle||'')}${full?' · '+durationLabel(v._duration):''}</div><button type="button" class="play" data-video="${i}">▶ Play inside FADS+</button></article>`).join(''):'<div class="empty">'+(full?'No videos passed the strict full-movie filters. Try the exact movie title or a different spelling.':'No embeddable trailer results found.')+'</div>';
+ }catch(err){videos=[];$('videos').innerHTML='<div class="empty">YouTube search failed: '+esc(err.message)+'</div>';}
+}
+$('trailer').addEventListener('click',()=>findVideos(false));$('full').addEventListener('click',()=>findVideos(true));
+$('videos').addEventListener('click',e=>{const b=e.target.closest('[data-video]');if(!b)return;const v=videos[Number(b.dataset.video)];if(!v)return;const id=v.id.videoId;currentTitle=v.snippet?.title||'YouTube video';$('watchTitle').textContent='FADS+ Player · '+currentTitle;$('frame').innerHTML=`<iframe src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&playsinline=1&rel=0" title="${esc(currentTitle)}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>`;$('now').textContent=currentTitle;$('watch').scrollIntoView({behavior:'smooth'});});
+function stopMain(){$('frame').innerHTML='<div style="height:100%;display:grid;place-items:center;color:#aaa">Choose a video to play here.</div>';$('now').textContent='Nothing playing yet';currentTitle='';}
+$('stop').addEventListener('click',stopMain);$('barStop').addEventListener('click',stopMain);$('barGo').addEventListener('click',()=>$('watch').scrollIntoView({behavior:'smooth'}));$('fs').addEventListener('click',()=>$('frame').querySelector('iframe')?.requestFullscreen?.().catch(()=>{}));
+ 
+function safeLicense(meta){const raw=String(meta.licenseurl||meta.license||'').trim().toLowerCase(),rights=String(meta.rights||'').trim().toLowerCase();return /creativecommons\.org\/(publicdomain\/(zero|mark)|licenses\/(by|by-sa))/.test(raw)||rights==='public domain'||rights==='cc0'||rights.includes('creative commons attribution');}
+async function searchArchive(query){$('archiveStatus').textContent='Searching Internet Archive…';$('archiveResults').innerHTML='';try{const url=IA+'/advancedsearch.php?q='+encodeURIComponent('('+query+') AND mediatype:movies')+'&fl[]=identifier,title,year,licenseurl&rows=18&page=1&output=json';const data=await fetchJson(url,'Internet Archive'),docs=data.response?.docs||[];const candidates=await Promise.all(docs.map(async item=>{try{const meta=await fetchJson(IA+'/metadata/'+encodeURIComponent(item.identifier),'Internet Archive metadata'),files=(meta.files||[]).filter(f=>String(f.name||'').toLowerCase().endsWith('.mp4')&&!String(f.name||'').includes('__ia_thumb')),m=meta.metadata||{},lic=m.licenseurl||item.licenseurl||m.license||'';if(!safeLicense({...m,licenseurl:lic})||!files.length)return null;files.sort((a,b)=>(+b.size||0)-(+a.size||0));return{id:item.identifier,title:item.title||m.title||item.identifier,year:item.year||'',license:lic||m.rights||'Rights label',file:files[0].name,page:IA+'/details/'+encodeURIComponent(item.identifier)};}catch{return null;}}));const results=candidates.filter(Boolean);$('archiveStatus').textContent=results.length?results.length+' possible openly licensed items. Verify rights on source page.':'No matching eligible MP4 found.';$('archiveResults').dataset.items=JSON.stringify(results);$('archiveResults').innerHTML=results.length?results.map((x,i)=>`<article class="card"><div class="movie-title">${esc(x.title)}</div><div class="artist">${esc(x.year)} · ${esc(x.license)}</div><button class="play" data-ia="${i}">▶ Play inside FADS+</button><a href="${esc(x.page)}" target="_blank" rel="noopener">Verify source license ↗</a></article>`).join(''):'<div class="empty">No eligible direct MP4 results.</div>';}catch(e){$('archiveStatus').textContent='Archive search failed: '+e.message;}}
+$('archiveForm').addEventListener('submit',e=>{e.preventDefault();const q=$('archiveQ').value.trim();if(q)searchArchive(q);});
+$('archiveResults').addEventListener('click',e=>{const b=e.target.closest('[data-ia]');if(!b)return;const x=JSON.parse($('archiveResults').dataset.items||'[]')[Number(b.dataset.ia)];if(!x)return;const url=IA+'/download/'+encodeURIComponent(x.id)+'/'+encodeURIComponent(x.file);$('directTitle').textContent='FADS+ Legal Player · '+x.title;$('directFrame').innerHTML=`<video controls autoplay playsinline src="${esc(url)}"></video>`;$('directPlayer').scrollIntoView({behavior:'smooth'});});
+$('directStop').addEventListener('click',()=>$('directFrame').innerHTML='<div style="height:100%;display:grid;place-items:center;color:#aaa">Choose a legal-source video.</div>');$('directFs').addEventListener('click',()=>$('directFrame').querySelector('video')?.requestFullscreen?.().catch(()=>{}));
+loadLang('ml');loadMyth();
+</script>
+ </body>
+</html>
