@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ml">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#080a12">
+  <title>FADS+ | Legal OTT Discovery</title>
+  <style>
+:root{color-scheme:dark;--bg:#080a12;--panel:#111725;--muted:#aab4c7;--accent:#ff426d;--line:#293247}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:#f7f8fc;font:15px/1.5 system-ui,"Noto Sans Malayalam",sans-serif;padding-bottom:76px}
+header{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(16px,4vw,55px);background:#080a12ed;position:sticky;top:0;z-index:5;border-bottom:1px solid #ffffff12;backdrop-filter:blur(16px)}
+.logo{font-weight:1000;font-size:1.6rem;letter-spacing:-1px}.logo span{color:var(--accent)}.tag{font-size:.7rem;letter-spacing:1.4px;color:#c4ccda}
+main{max-width:1440px;margin:auto;padding:18px clamp(14px,4vw,55px)}
+.hero{min-height:390px;border-radius:20px;padding:clamp(24px,6vw,70px);display:flex;flex-direction:column;justify-content:center;background:linear-gradient(90deg,#080a12 0%,#080a12e8 45%,#080a1240),url('https://images.unsplash.com/photo-1489599849927-2ee91c1d?auto=format&fit=crop&w=1800&q=85') center/cover;border:1px solid #ffffff18}
+.kicker{color:#ff7694;font-size:.75rem;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(2.5rem,7vw,5.5rem);line-height:.98;max-width:700px;margin:12px 0}.hero p{color:#d0d6e2;max-width:550px}
+.search{display:flex;gap:8px;max-width:650px;margin-top:12px}input,select{min-width:0;background:#101827;color:white;border:1px solid #344057;border-radius:9px;padding:13px;font:inherit}input{flex:1}button{background:#202b3d;color:white;border:1px solid #3a4962;border-radius:9px;padding:11px 15px;font:inherit;font-weight:750;cursor:pointer}button.primary{background:linear-gradient(110deg,#ff426d,#8b4bff);border:0}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}.filters button.active{background:var(--accent);border-color:var(--accent)}
+.section{margin:34px 0}.heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.heading h2{margin:0;font-size:1.4rem}.muted,.status{color:var(--muted);font-size:.88rem}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:15px}
+.movie{min-width:0;background:var(--panel);border:1px solid #ffffff14;border-radius:12px;padding:8px;cursor:pointer;transition:.2s}
+.movie:hover{transform:translateY(-4px);border-color:#ff6b8d88}.poster{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:8px;background:#20283a}
+.title{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:7px}.meta{font-size:.78rem;color:var(--muted)}
+.details{display:none;margin-top:24px;padding:18px;background:#101725;border:1px solid var(--line);border-radius:15px}.details.open{display:grid;grid-template-columns:150px 1fr;gap:18px}.details img{width:100%;border-radius:9px}.providers{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.provider{background:#202b3d;padding:8px 11px;border-radius:8px;font-size:.85rem}.notice{background:#111725;border:1px solid var(--line);padding:14px;border-radius:11px;color:#bdc7d8;font-size:.85rem}
+.player{margin-top:20px;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#000}.player h3{margin:0;padding:13px;background:#151f30;font-size:1rem}.screen{aspect-ratio:16/9;display:grid;place-items:center;text-align:center;padding:20px;color:#c3ccda}.screen video,.screen iframe{width:100%;height:100%;border:0}.bottom{position:fixed;bottom:0;left:0;right:0;background:#090e19ed;border-top:1px solid var(--line);display:flex;justify-content:center;gap:40px;padding:12px;z-index:6}.bottom a{color:#c3ccda;text-decoration:none;font-size:.85rem}
+@media(max-width:600px){.hero{min-height:360px;padding:23px 17px}.search{flex-wrap:wrap}.search input{flex-basis:100%}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.details.open{grid-template-columns:100px 1fr}.bottom{justify-content:space-around;gap:5px}}
+</style>
+ </head>
+ <body>
+  <header>
+   <div class="logo">
+    FADS<span>+</span>
+   </div>
+   <div class="tag">LEGAL OTT DISCOVERY</div>
+  </header>
+  <main>
+   <section class="hero">
+    <div class="kicker">DISCOVER · STREAM LEGALLY</div>
+    <h1>New stories.
+     <br>
+     <span style="color:#ff527b">One destination.</span></h1>
+    <p>പുതിയ സിനിമകൾ കണ്ടെത്തൂ. ഏത് ഔദ്യോഗിക OTT സേവനത്തിലാണ് ലഭ്യമെന്ന് പരിശോധിക്കൂ.</p>
+    <form class="search" id="search">
+     <input id="q" placeholder="Search movies…" autocomplete="off">
+     <button class="primary">Search</button>
+    </form>
+    <div class="filters" id="langs">
+     <button class="active" data-lang="ml">Malayalam</button>
+     <button data-lang="ta">Tamil</button>
+     <button data-lang="hi">Hindi</button>
+     <button data-lang="te">Telugu</button>
+     <button data-lang="kn">Kannada</button>
+     <button data-lang="en">English</button>
+    </div>
+    <div class="status" id="status">Connect your movie data service to begin.</div>
+   </section>
+   <section class="section">
+    <div class="heading">
+     <h2 id="listTitle">Latest OTT releases</h2>
+     <span class="muted" id="count"></span>
+    </div>
+    <div class="grid" id="movies">
+     <div class="notice">Movies will appear after the TMDB proxy is configured.</div>
+    </div>
+   </section>
+   <section class="details" id="details">
+    <img id="detailPoster" alt="">
+    <div>
+     <h2 id="detailTitle"></h2>
+     <p class="muted" id="detailMeta"></p>
+     <p id="overview"></p>
+     <h3>Official streaming availability</h3>
+     <div class="providers" id="providers"></div>
+     <p class="muted" id="providerNote"></p>
+     <button id="officialSearch" class="primary">Find official watch options ↗</button>
+    </div>
+   </section>
+   <section class="player">
+    <h3>FADS+ In-site Player</h3>
+    <div class="screen" id="screen">Choose a movie, then add a licensed MP4/WebM URL or a permitted YouTube embed URL below.</div>
+    <div style="padding:14px;background:#101725">
+     <label for="licensedUrl" style="display:block;margin-bottom:7px;font-weight:750">Licensed video / permitted embed URL</label> <input id="licensedUrl" type="url" placeholder="https://your-authorized-host/video.mp4" style="width:100%;margin-bottom:9px">
+     <button class="primary" id="savePlay">Save &amp; Play this movie</button>
+     <p class="muted" style="margin-bottom:0">Only use a direct video file or embed URL you own or are authorized to stream. Saved locally in this browser for testing.</p>
+    </div>
+   </section>
+   <section class="section notice">
+    <b>Playback &amp; copyright:</b> TMDB and provider listings help discover where a title is available; they do not grant streaming rights. FADS+ plays video inside this site only when you supply a licensed direct video URL or an embed explicitly permitted by the rights holder. Provider availability may vary by country and subscription.
+   </section>
+  </main>
+  <nav class="bottom">
+   <a href="#">⌂ Home</a><a href="#movies">▣ Movies</a><a href="#search">⌕ Search</a><a href="#details">◎ Details</a>
+  </nav>
+  <script>
+const API_BASE='https://fadsplus-api.sudarsanankr49.workers.dev/tmdb/3';
+const IMG='https://image.tmdb.org/t/p/w500';let lang='ml',selected=null;
+const $=id=>document.getElementById(id);
+async function api(path){const r=await fetch(API_BASE+path);const d=await r.json();if(!r.ok)throw Error(d.status_message||'Movie service error');return d}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function render(items){$('movies').innerHTML=items.length?items.map(m=>`<article class="movie" data-id="${m.id}"><img class="poster" loading="lazy" src="${m.poster_path?IMG+m.poster_path:''}" alt="${esc(m.title)}"><div class="title">${esc(m.title)}</div><div class="meta">${(m.release_date||'').slice(0,4)} · ★ ${Number(m.vote_average||0).toFixed(1)}</div></article>`).join(''):'<div class="notice">No titles found.</div>';$('count').textContent=items.length+' titles'}
+async function load(){ $('status').textContent='Loading titles…';try{const d=await api(`/discover/movie?with_original_language=${lang}&sort_by=primary_release_date.desc&include_adult=false&page=1`);render(d.results||[]);$('status').textContent='Movie catalogue updated';}catch(e){$('status').textContent=e.message+' — check your TMDB proxy URL and API access.'}}
+async function details(id){try{selected=await api(`/movie/${id}?append_to_response=watch/providers`);$('details').classList.add('open');$('detailPoster').src=selected.poster_path?IMG+selected.poster_path:'';$('detailTitle').textContent=selected.title;$('detailMeta').textContent=(selected.release_date||'')+' · '+(selected.runtime||'')+' min';$('overview').textContent=selected.overview||'No description available.';const wp=selected['watch/providers']?.results?.IN||{};const list=[...(wp.flatrate||[]),...(wp.rent||[]),...(wp.buy||[])];const watchLink=wp.link||'';$('providers').innerHTML=list.length?list.map(p=>`<span class="provider">${esc(p.provider_name)}</span>`).join(''):'<span class="muted">No India provider listing returned.</span>';$('providerNote').textContent='Availability data is indicative. Confirm the title, plan and region on the provider service.';$('officialSearch').onclick=()=>{if(watchLink){window.open(watchLink,'_blank','noopener');}else{window.open('https://www.google.com/search?q='+encodeURIComponent(selected.title+' official OTT streaming India'),'_blank','noopener');}};const saved=localStorage.getItem('fads_licensed_'+selected.id)||'';$('licensedUrl').value=saved;$('details').scrollIntoView({behavior:'smooth'});}catch(e){$('status').textContent=e.message}}
+
+function playAuthorizedUrl(raw){
+ const url=new URL(raw);
+ if(url.protocol!=='https:')throw Error('Please use a secure HTTPS URL.');
+ const screen=$('screen');
+ if(/\\.(mp4|webm|ogg)(\\?.*)?$/i.test(url.pathname+url.search)){
+   screen.innerHTML='';const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.src=url.href;video.style.width='100%';video.style.height='100%';screen.appendChild(video);video.play().catch(()=>{});
+   return;
+ }
+ const yt=url.hostname==='youtu.be'||url.hostname==='www.youtube.com'||url.hostname==='youtube.com'||url.hostname==='www.youtube-nocookie.com'||url.hostname==='youtube-nocookie.com';
+ if(yt){
+   let id='';if(url.hostname.includes('youtu.be'))id=url.pathname.split('/').filter(Boolean)[0]||'';else if(url.pathname==='/watch')id=url.searchParams.get('v')||'';else if(url.pathname.startsWith('/embed/'))id=url.pathname.split('/')[2]||'';
+   if(!/^[A-Za-z0-9_-]{6,20}$/.test(id))throw Error('Use a valid YouTube video or /embed/ URL.');
+   screen.innerHTML='';const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+id;frame.title='Authorized video';frame.allow='accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen';frame.allowFullscreen=true;screen.appendChild(frame);return;
+ }
+ throw Error('Unsupported URL. Use an authorized HTTPS MP4/WebM file or permitted YouTube video/embed URL.');
+}
+$('savePlay').addEventListener('click',()=>{try{if(!selected)throw Error('Select a movie first.');const raw=$('licensedUrl').value.trim();if(!raw)throw Error('Enter an authorized video URL.');playAuthorizedUrl(raw);localStorage.setItem('fads_licensed_'+selected.id,raw);}catch(e){$('status').textContent=e.message;}});
+$('movies').addEventListener('click',e=>{const card=e.target.closest('[data-id]');if(card)details(card.dataset.id)});
+$('langs').addEventListener('click',e=>{const b=e.target.closest('[data-lang]');if(!b)return;lang=b.dataset.lang;document.querySelectorAll('[data-lang]').forEach(x=>x.classList.toggle('active',x===b));$('listTitle').textContent=b.textContent+' Movies';load()});
+$('search').addEventListener('submit',async e=>{e.preventDefault();const q=$('q').value.trim();if(!q)return;try{const d=await api('/search/movie?query='+encodeURIComponent(q)+'&include_adult=false');$('listTitle').textContent='Search results';render(d.results||[])}catch(err){$('status').textContent=err.message}});
+load();
+</script>
+ </body>
+</html>
