@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="ml">
+ <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#090812">
+  <meta name="description" content="FADS+ — movies, trailers and licensed streaming sources in one player.">
+  <title>FADS+ | Movies &amp; Streaming</title>
+  <style>
+:root{--bg:#090812;--panel:#151323;--panel2:#201b32;--text:#f8f6ff;--muted:#aaa4bd;--pink:#ff3e9d;--purple:#925bff;--line:#302941;--good:#65e6b2;--warn:#ffc86b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% -10%,#291344 0,transparent 38%),var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Malayalam",sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.wrap{max-width:1440px;margin:auto;padding:0 22px}
+header{position:sticky;top:0;z-index:20;background:#090812eF;backdrop-filter:blur(18px);border-bottom:1px solid #ffffff12}
+.nav{height:70px;display:flex;align-items:center;gap:22px}.brand{font-size:27px;font-weight:950;letter-spacing:-1.5px;background:linear-gradient(100deg,#fff 15%,#ff4da6 60%,#a77aff);color:transparent;background-clip:text}.brand span{font-size:11px;letter-spacing:3px;display:block;color:#aaa4bd;margin-top:-5px}
+.navlinks{display:flex;gap:18px;margin-left:20px}.navlinks a{color:#d8d2e5;text-decoration:none;font-size:14px}.navlinks a:hover{color:var(--pink)}.navsearch{margin-left:auto;display:flex;gap:8px;max-width:390px;width:100%}
+input,select{background:#171426;border:1px solid #39314b;color:white;border-radius:12px;padding:12px 14px;min-width:0;outline:none}input:focus,select:focus{border-color:var(--pink)}
+.btn{border:0;border-radius:12px;padding:11px 16px;color:white;font-weight:750;background:linear-gradient(110deg,var(--pink),var(--purple));box-shadow:0 7px 25px #a13bba33}.btn.secondary{background:#29243a;border:1px solid #413951;box-shadow:none}.btn.small{padding:8px 11px;font-size:13px}
+.hero{min-height:430px;display:flex;align-items:end;padding:50px 0 42px;position:relative;overflow:hidden}.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#090812 5%,#090812dc 45%,#09081235),linear-gradient(0deg,#090812 0%,transparent 70%),url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1800") center/cover;opacity:.62}.heroContent{position:relative;max-width:660px}.eyebrow{color:#ff7dbd;text-transform:uppercase;letter-spacing:3px;font-size:11px;font-weight:800}.hero h1{font-size:clamp(38px,7vw,72px);line-height:.98;margin:14px 0}.hero p{color:#c4bed1;line-height:1.7;max-width:570px}.heroActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
+section{padding:25px 0}.sectionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.sectionHead h2{font-size:22px;margin:0}.sectionHead p{color:var(--muted);font-size:12px;margin:4px 0 0}
+.chips{display:flex;gap:8px;overflow:auto;padding:3px 0 12px}.chip{white-space:nowrap;border:1px solid #393149;background:#171426;color:#d6d0e2;border-radius:30px;padding:8px 14px;font-size:13px}.chip.active{background:linear-gradient(100deg,#e83391,#7549d8);border-color:transparent;color:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:18px}.movie{min-width:0;cursor:pointer;transition:.2s}.movie:hover{transform:translateY(-5px)}.poster{aspect-ratio:2/3;border-radius:13px;overflow:hidden;background:#211b30;position:relative;border:1px solid #ffffff12}.poster img{width:100%;height:100%;object-fit:cover;display:block}.poster .noimg{height:100%;display:grid;place-items:center;color:#827a94;padding:10px;text-align:center}.movieTitle{font-size:14px;font-weight:750;margin:9px 0 3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.meta{font-size:12px;color:var(--muted)}.rating{position:absolute;top:8px;left:8px;background:#090812d9;border-radius:7px;padding:4px 7px;font-size:11px}
+.status{color:var(--muted);font-size:13px;padding:16px 0}.hidden{display:none!important}
+.playerSection{padding-top:30px}.playerShell{background:#100e1a;border:1px solid #393149;border-radius:18px;overflow:hidden;box-shadow:0 20px 70px #0008}.playerTop{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 17px;border-bottom:1px solid #302941}.playerTop h2{font-size:17px;margin:0}.playerTop small{color:var(--muted)}.playerStage{background:#000;aspect-ratio:16/9;max-height:72vh;position:relative;display:grid;place-items:center}.playerStage video,.playerStage iframe{width:100%;height:100%;border:0;display:block;background:#000}.emptyPlayer{color:#aaa4bd;text-align:center;padding:25px}.emptyPlayer .playIcon{font-size:45px;color:#ff4da6}.playerTools{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:12px 15px;background:#151323}.playerTools label{font-size:12px;color:var(--muted)}.playerTools input{padding:9px;flex:1;min-width:140px}.playerInfo{padding:12px 17px;color:#bcb5ca;font-size:12px;line-height:1.6}
+.sourceForm{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:#151323;border:1px solid var(--line);border-radius:15px;padding:16px}.sourceForm input{width:100%}.sourceForm .wide{grid-column:1/-1}.notice{font-size:12px;color:#c6bdd4;line-height:1.6;background:#1a1728;border-left:3px solid var(--warn);padding:12px 14px;border-radius:8px}
+footer{border-top:1px solid #ffffff12;padding:30px 0 45px;color:#8e879f;font-size:12px;line-height:1.7;margin-top:35px}
+.modal{position:fixed;inset:0;background:#05040beF;z-index:40;display:none;overflow:auto;padding:25px}.modal.open{display:block}.modalCard{max-width:900px;margin:30px auto;background:#171426;border:1px solid #40364f;border-radius:18px;overflow:hidden}.modalHead{display:flex;justify-content:space-between;padding:12px 17px}.detail{display:grid;grid-template-columns:220px 1fr;gap:22px;padding:0 20px 22px}.detail img{width:100%;border-radius:12px}.detail h2{margin:5px 0}.detail p{color:#c2bbd0;line-height:1.65}.detailActions{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:700px){.wrap{padding:0 14px}.nav{height:auto;min-height:64px;flex-wrap:wrap;padding:10px 0}.navlinks{display:none}.navsearch{max-width:none;order:2;width:100%}.hero{min-height:390px;padding:35px 0}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.movieTitle{font-size:12px}.meta{font-size:10px}.sectionHead h2{font-size:19px}.detail{grid-template-columns:110px 1fr;gap:13px;padding:0 13px 17px}.modal{padding:8px}.modalCard{margin:12px auto}.sourceForm{grid-template-columns:1fr}.sourceForm .wide{grid-column:auto}.playerTop{align-items:flex-start}.playerStage{aspect-ratio:16/9}.playerTools input{min-width:100%}}
+</style>
+ </head>
+ <body>
+  <header>
+   <div class="wrap nav">
+    <a href="#" style="text-decoration:none">
+     <div class="brand">
+      FADS+<span>MOVIE DISCOVERY</span>
+     </div>
+    </a>
+    <nav class="navlinks">
+     <a href="#discover">Discover</a><a href="#mythology">Mythology</a><a href="#player">Player</a><a href="#licensed">Add Source</a>
+    </nav>
+    <form class="navsearch" id="searchForm">
+     <input id="searchInput" placeholder="Search movies, series..." aria-label="Search movies">
+     <button class="btn">Search</button>
+    </form>
+   </div>
+  </header>
+  <main class="wrap">
+   <section class="hero">
+    <div class="heroContent">
+     <div class="eyebrow">One destination · More stories</div>
+     <h1>Discover.
+      <br>
+      Press play.</h1>
+     <p>സിനിമകളും സീരീസുകളും കണ്ടെത്തൂ. ഔദ്യോഗിക YouTube വീഡിയോകളും ലൈസൻസുള്ള MP4 / HLS സ്ട്രീമുകളും ഒരേ FADS+ Player-ൽ പ്ലേ ചെയ്യാം.</p>
+     <div class="heroActions">
+      <button class="btn" onclick="document.querySelector('#discover').scrollIntoView({behavior:'smooth'})">Explore Movies</button>
+      <button class="btn secondary" onclick="document.querySelector('#player').scrollIntoView({behavior:'smooth'})">Open Player</button>
+     </div>
+    </div>
+   </section>
+   <section id="discover">
+    <div class="sectionHead">
+     <div>
+      <h2>Discover Movies</h2>
+      <p>TMDB വിവരങ്ങൾ · Posters · Search</p>
+     </div>
+     <select id="languageFilter" aria-label="Language"><option value="">All languages</option><option value="ml">Malayalam</option><option value="ta">Tamil</option><option value="hi">Hindi</option><option value="te">Telugu</option><option value="kn">Kannada</option><option value="en">English</option></select>
+    </div>
+    <div class="chips" id="categoryChips">
+     <button class="chip active" data-kind="trending">Trending</button>
+     <button class="chip" data-kind="popular">Popular</button>
+     <button class="chip" data-kind="top_rated">Top Rated</button>
+     <button class="chip" data-kind="now_playing">Now Playing</button>
+    </div>
+    <div id="movieGrid" class="grid"></div>
+    <div id="movieStatus" class="status">സിനിമകൾ ലോഡ് ചെയ്യുന്നു...</div>
+   </section>
+   <section id="mythology">
+    <div class="sectionHead">
+     <div>
+      <h2>Mythology &amp; Spiritual Series</h2>
+      <p>പുരാണ / ആത്മീയ സീരീസ് കണ്ടെത്തുക</p>
+     </div>
+    </div>
+    <div class="chips" id="mythChips">
+     <button class="chip" data-q="RadhaKrish">RadhaKrish</button>
+     <button class="chip" data-q="Devon Ke Dev Mahadev">Mahadev</button>
+     <button class="chip" data-q="Mahabharat">Mahabharat</button>
+     <button class="chip" data-q="Ramayan">Ramayan</button>
+     <button class="chip" data-q="Shani">Shani</button>
+     <button class="chip" data-q="The Legend of Hanuman">Hanuman</button>
+     <button class="chip" data-q="Siya Ke Ram">Siya Ke Ram</button>
+     <button class="chip" data-q="Vighnaharta Ganesh">Ganesh</button>
+    </div>
+    <div id="mythGrid" class="grid"></div>
+    <div id="mythStatus" class="status">ഒരു സീരീസ് തിരഞ്ഞെടുക്കുക.</div>
+   </section>
+   <section id="player" class="playerSection">
+    <div class="sectionHead">
+     <div>
+      <h2>FADS+ Universal Player</h2>
+      <p>YouTube · Licensed MP4 · Licensed HLS</p>
+     </div>
+     <span class="chip active">ONE PLAYER</span>
+    </div>
+    <div class="playerShell">
+     <div class="playerTop">
+      <div>
+       <h2 id="nowTitle">ഇവിടെ വീഡിയോ പ്ലേ ചെയ്യാം</h2>
+       <small id="nowSource">ഒരു സിനിമ തിരഞ്ഞെടുക്കുക അല്ലെങ്കിൽ ലൈസൻസുള്ള സ്ട്രീം ചേർക്കുക</small>
+      </div>
+      <button class="btn secondary small" onclick="stopPlayback()">Stop</button>
+     </div>
+     <div id="playerStage" class="playerStage">
+      <div class="emptyPlayer">
+       <div class="playIcon">▶</div>
+       <b>FADS+ Player</b>
+       <p>Movie / trailer തിരഞ്ഞെടുക്കുക</p>
+      </div>
+     </div>
+     <div class="playerTools">
+      <button class="btn secondary small" onclick="toggleFullscreen()">Fullscreen</button>
+      <label for="resumeHint">Resume playback:</label><span id="resumeHint" style="font-size:12px;color:var(--muted)">MP4 / HLS ഉറവിടങ്ങളിൽ ലഭ്യം</span>
+     </div>
+     <div class="playerInfo" id="playerInfo">YouTube വീഡിയോ embed അനുവദിക്കുന്ന ഔദ്യോഗിക ഉറവിടത്തിൽ നിന്നായിരിക്കണം. MP4/HLS URL-കൾ അവകാശമുള്ള ഉടമയുടെയോ ലൈസൻസ് നൽകിയ സേവനത്തിന്റെയോ ആയിരിക്കണം.</div>
+    </div>
+   </section>
+   <section id="licensed">
+    <div class="sectionHead">
+     <div>
+      <h2>Add a Licensed Stream</h2>
+      <p>നിങ്ങൾക്ക് ഉപയോഗാവകാശമുള്ള MP4 / HLS സ്ട്രീം ചേർക്കാം</p>
+     </div>
+    </div>
+    <div class="sourceForm">
+     <input id="streamTitle" placeholder="Movie / video title"> <select id="streamType"><option value="mp4">MP4 video</option><option value="hls">HLS (.m3u8)</option></select> <input id="streamUrl" class="wide" type="url" placeholder="https://licensed-provider.example/video.mp4"> <input id="subtitleUrl" class="wide" type="url" placeholder="Optional subtitle URL (.vtt)">
+     <button class="btn wide" onclick="addLicensedSource()">Play licensed stream</button>
+    </div>
+    <p class="notice" style="margin-top:12px">ശ്രദ്ധിക്കുക: പൊതുവായി ലഭിക്കുന്ന URL ആണെന്നത് മാത്രം പ്ലേ ചെയ്യാനുള്ള അനുമതിയല്ല. നിങ്ങൾക്ക് വിതരണം / പ്രദർശനാവകാശമുള്ള സ്ട്രീം മാത്രം ചേർക്കുക. DRM സംരക്ഷണം മറികടക്കുകയോ മറ്റൊരു OTT ആപ്പിൽ നിന്ന് സ്ട്രീം പിടിച്ചെടുക്കുകയോ ചെയ്യില്ല.</p>
+   </section>
+  </main>
+  <footer>
+   <div class="wrap">
+    <b>FADS+</b> · Movie discovery and playback interface.
+    <br>
+    Movie metadata and posters are provided by TMDB. FADS+ is not affiliated with TMDB, YouTube, or streaming providers. Availability, playback and rights depend on each source. Internet Archive metadata alone does not independently prove distribution rights.
+   </div>
+  </footer>
+  <div id="detailModal" class="modal" role="dialog" aria-modal="true" aria-label="Movie details">
+   <div class="modalCard">
+    <div class="modalHead">
+     <span class="eyebrow">MOVIE DETAILS</span>
+     <button class="btn secondary small" onclick="closeModal()">Close ✕</button>
+    </div>
+    <div id="detailBody"></div>
+   </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@1.5.20/dist/hls.min.js"></script>
+  <script>
+'use strict';
+// Existing FADS+ Cloudflare Worker proxy. Keep this URL aligned with your deployed Worker.
+const API_BASE = 'https://fadsplus-api.sudarsanankr49.workers.dev';
+const TMDB_BASE = API_BASE + '/tmdb/3';
+const YT_BASE = API_BASE + '/youtube/v3';
+const IMG = 'https://image.tmdb.org/t/p/w500';
+let currentKind='trending', currentLanguage='', hlsInstance=null, currentVideo=null, activeMovie=null;
+ 
+function setStatus(id,msg){document.getElementById(id).textContent=msg}
+async function api(url){const r=await fetch(url);if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}
+function posterUrl(path){return path?IMG+path:''}
+function movieName(m){return m.title||m.name||m.original_title||m.original_name||'Untitled'}
+function card(m,container){
+ const el=document.createElement('article');el.className='movie';
+ const p=posterUrl(m.poster_path), title=movieName(m), year=(m.release_date||m.first_air_date||'').slice(0,4);
+ el.innerHTML=`<div class="poster">${p?`<img loading="lazy" src="${p}" alt="">`:`<div class="noimg">FADS+</div>`}<span class="rating">★ ${Number(m.vote_average||0).toFixed(1)}</span></div><div class="movieTitle"></div><div class="meta"></div>`;
+ el.querySelector('.movieTitle').textContent=title;el.querySelector('.meta').textContent=[year,m.media_type==='tv'?'Series':'Movie'].filter(Boolean).join(' · ');
+ el.addEventListener('click',()=>showDetails(m));container.appendChild(el)
+}
+async function loadMovies(kind=currentKind){
+ currentKind=kind;const grid=document.getElementById('movieGrid');grid.innerHTML='';setStatus('movieStatus','Loading...');
+ try{
+  let path=kind==='trending'?'/trending/all/week':kind==='popular'?'/movie/popular':kind==='top_rated'?'/movie/top_rated':'/movie/now_playing';
+  let url=TMDB_BASE+path+'?language=en-US&page=1';
+  if(currentLanguage)url+='&with_original_language='+encodeURIComponent(currentLanguage);
+  const data=await api(url);(data.results||[]).filter(x=>x.poster_path).forEach(m=>card(m,grid));
+  setStatus('movieStatus',grid.children.length?`${grid.children.length} results`:'ഫലങ്ങൾ കണ്ടെത്തിയില്ല.');
+ }catch(e){setStatus('movieStatus','TMDB load failed. Worker URL / API configuration പരിശോധിക്കുക. ('+e.message+')')}
+}
+async function searchMovies(q,target='movieGrid',status='movieStatus'){
+ const grid=document.getElementById(target);grid.innerHTML='';setStatus(status,'Searching...');
+ try{const data=await api(TMDB_BASE+'/search/multi?query='+encodeURIComponent(q)+'&include_adult=false&language=en-US&page=1');
+ (data.results||[]).filter(x=>x.poster_path&&(x.media_type==='movie'||x.media_type==='tv')).forEach(m=>card(m,grid));
+ setStatus(status,grid.children.length?`${grid.children.length} results for “${q}”`:'ഫലങ്ങൾ കണ്ടെത്തിയില്ല.');
+ }catch(e){setStatus(status,'Search failed: '+e.message)}
+}
+function showDetails(m){
+ activeMovie=m;const title=movieName(m),poster=posterUrl(m.poster_path);
+ const body=document.getElementById('detailBody');body.innerHTML='';
+ const row=document.createElement('div');row.className='detail';
+ row.innerHTML=`<div>${poster?`<img src="${poster}" alt="">`:'<div class="poster"></div>'}</div><div><h2></h2><div class="meta"></div><p class="overview"></p><div class="detailActions"><button class="btn" id="trailerBtn">Find official YouTube videos</button><button class="btn secondary" id="archiveBtn">Find Archive candidates</button></div><p class="meta" id="detailStatus"></p></div>`;
+ row.querySelector('h2').textContent=title;row.querySelector('.meta').textContent=`★ ${Number(m.vote_average||0).toFixed(1)} · ${(m.release_date||m.first_air_date||'').slice(0,4)}`;
+ row.querySelector('.overview').textContent=m.overview||'വിവരണം ലഭ്യമല്ല.';
+ row.querySelector('#trailerBtn').onclick=()=>findYouTube(title+' official trailer');
+ row.querySelector('#archiveBtn').onclick=()=>findArchive(title);
+ body.appendChild(row);document.getElementById('detailModal').classList.add('open')
+}
+function closeModal(){document.getElementById('detailModal').classList.remove('open')}
+document.getElementById('detailModal').addEventListener('click',e=>{if(e.target.id==='detailModal')closeModal()});
+document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('searchInput').value.trim();if(q)searchMovies(q)});
+document.getElementById('languageFilter').addEventListener('change',e=>{currentLanguage=e.target.value;loadMovies()});
+document.querySelectorAll('#categoryChips .chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#categoryChips .chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');loadMovies(b.dataset.kind)}));
+document.querySelectorAll('#mythChips .chip').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#mythChips .chip').forEach(x=>x.classList.remove('active'));b.classList.add('active');searchMovies(b.dataset.q,'mythGrid','mythStatus')}));
+function setPlayerHeader(title,source){document.getElementById('nowTitle').textContent=title;document.getElementById('nowSource').textContent=source}
+function clearPlayer(){if(hlsInstance){hlsInstance.destroy();hlsInstance=null}const stage=document.getElementById('playerStage');stage.innerHTML='';currentVideo=null}
+function stopPlayback(){clearPlayer();setPlayerHeader('ഇവിടെ വീഡിയോ പ്ലേ ചെയ്യാം','Playback നിർത്തി');document.getElementById('playerStage').innerHTML='<div class="emptyPlayer"><div class="playIcon">▶</div><b>FADS+ Player</b><p>Movie / trailer തിരഞ്ഞെടുക്കുക</p></div>';document.getElementById('playerInfo').textContent='ഒരു വീഡിയോ തിരഞ്ഞെടുക്കുക.'}
+function playSource(source){
+ clearPlayer();const stage=document.getElementById('playerStage');currentVideo=source;
+ setPlayerHeader(source.title||'Now Playing',source.label||source.type.toUpperCase());
+ if(source.type==='youtube'){
+  const frame=document.createElement('iframe');frame.src='https://www.youtube-nocookie.com/embed/'+encodeURIComponent(source.videoId)+'?autoplay=1&rel=0&modestbranding=1';frame.title=source.title||'YouTube video';frame.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';frame.allowFullscreen=true;stage.appendChild(frame);
+  document.getElementById('resumeHint').textContent='YouTube resume ഈ പതിപ്പിൽ ലഭ്യമല്ല';
+  document.getElementById('playerInfo').textContent='YouTube-ന്റെ ഔദ്യോഗിക embed അനുവദിച്ച വീഡിയോയാണ് ഇവിടെ പ്ലേ ചെയ്യുന്നത്. ചില വീഡിയോകൾ ഉടമയുടെ നിയന്ത്രണങ്ങൾ കാരണം embed ചെയ്യാനാകില്ല.';
+ }else{
+  const video=document.createElement('video');video.controls=true;video.playsInline=true;video.preload='metadata';video.crossOrigin='anonymous';stage.appendChild(video);currentVideo.element=video;
+  const key='fads_resume_'+btoa(unescape(encodeURIComponent(source.url))).replace(/[^a-z0-9]/gi,'').slice(0,48);
+  const saved=Number(localStorage.getItem(key)||0);
+  video.addEventListener('loadedmetadata',()=>{if(saved>10&&saved<video.duration-20){video.currentTime=saved;document.getElementById('resumeHint').textContent='തുടരുന്നു: '+Math.floor(saved/60)+' മിനിറ്റ്'}else document.getElementById('resumeHint').textContent='Resume position save ചെയ്യും'});
+  let lastSave=0;video.addEventListener('timeupdate',()=>{if(video.currentTime-lastSave>5){localStorage.setItem(key,String(video.currentTime));lastSave=video.currentTime}});
+  video.addEventListener('ended',()=>localStorage.removeItem(key));
+  if(source.subtitle){const track=document.createElement('track');track.kind='subtitles';track.label='Subtitles';track.srclang='en';track.src=source.subtitle;track.default=true;video.appendChild(track)}
+  if(source.type==='hls'){
+   if(video.canPlayType('application/vnd.apple.mpegurl'))video.src=source.url;
+   else if(window.Hls&&Hls.isSupported()){hlsInstance=new Hls();hlsInstance.loadSource(source.url);hlsInstance.attachMedia(video);hlsInstance.on(Hls.Events.ERROR,(_,data)=>{if(data.fatal)document.getElementById('playerInfo').textContent='HLS playback error. URL / CORS / provider permission പരിശോധിക്കുക.'})}
+   else {document.getElementById('playerInfo').textContent='ഈ browser-ൽ HLS playback support ഇല്ല.';return}
+  }else video.src=source.url;
+  video.play().catch(()=>{document.getElementById('playerInfo').textContent='Play അമർത്തി തുടങ്ങുക. Browser autoplay തടഞ്ഞിരിക്കാം.'});
+  document.getElementById('playerInfo').textContent='ലൈസൻസുള്ള '+source.type.toUpperCase()+' സ്ട്രീം. Subtitles ലഭ്യമെങ്കിൽ browser controls വഴി തിരഞ്ഞെടുക്കാം. Quality / audio tracks ഉറവിടം നൽകുന്നുവെങ്കിൽ മാത്രം ലഭിക്കും.';
+ }
+ document.getElementById('player').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function toggleFullscreen(){const stage=document.getElementById('playerStage');if(document.fullscreenElement)document.exitFullscreen?.();else stage.requestFullscreen?.()}
+function addLicensedSource(){
+ const title=document.getElementById('streamTitle').value.trim()||'Licensed video',type=document.getElementById('streamType').value,url=document.getElementById('streamUrl').value.trim(),subtitle=document.getElementById('subtitleUrl').value.trim();
+ try{const parsed=new URL(url);if(!['https:','http:'].includes(parsed.protocol))throw new Error();}catch(e){alert('ശരിയായ http/https stream URL നൽകുക.');return}
+ if(type==='hls'&&!/\.m3u8($|\?)/i.test(url)){if(!confirm('URL .m3u8 ആയി തോന്നുന്നില്ല. തുടരണോ?'))return}
+ playSource({type,title,url,subtitle,label:'Licensed '+type.toUpperCase()});
+}
+async function findYouTube(query){
+ closeModal();setStatus('mythStatus','YouTube results loading...');
+ try{
+  const data=await api(YT_BASE+'/search?part=snippet&type=video&maxResults=12&videoEmbeddable=true&q='+encodeURIComponent(query));
+  const items=data.items||[];const grid=document.getElementById('mythGrid');grid.innerHTML='';
+  items.forEach(item=>{
+   const id=item.id?.videoId,sn=item.snippet||{};if(!id)return;
+   const el=document.createElement('article');el.className='movie';
+   const thumb=sn.thumbnails?.medium?.url||sn.thumbnails?.default?.url||'';
+   el.innerHTML=`<div class="poster"><img loading="lazy" src="${thumb}" alt=""></div><div class="movieTitle"></div><div class="meta"></div>`;
+   el.querySelector('.movieTitle').textContent=sn.title||'YouTube video';el.querySelector('.meta').textContent=sn.channelTitle||'YouTube';
+   el.onclick=()=>playSource({type:'youtube',videoId:id,title:sn.title||query,label:'YouTube · '+(sn.channelTitle||'')});grid.appendChild(el)
+  });
+  setStatus('mythStatus',items.length?'വീഡിയോ തിരഞ്ഞെടുക്കുക. Official channel / usage rights ഉറപ്പാക്കുക.':'YouTube results ഇല്ല. Worker/API configuration പരിശോധിക്കുക.');
+ }catch(e){setStatus('mythStatus','YouTube search failed: '+e.message)}
+}
+async function findArchive(query){
+ closeModal();setStatus('mythStatus','Internet Archive candidates തിരയുന്നു...');
+ try{
+  const q='title:"'+query.replace(/"/g,'')+'" AND mediatype:movies';
+  const url='https://archive.org/advancedsearch.php?q='+encodeURIComponent(q)+'&fl[]=identifier,title,licenseurl,description&rows=15&page=1&output=json';
+  const data=await api(url);const docs=data.response?.docs||[];const grid=document.getElementById('mythGrid');grid.innerHTML='';
+  for(const doc of docs){
+   const meta=await api('https://archive.org/metadata/'+encodeURIComponent(doc.identifier));
+   const files=meta.files||[];const mp4=files.find(f=>f.name&&/\.mp4$/i.test(f.name)&&Number(f.size||0)>1000000);
+   if(!mp4)continue;
+   const lic=String(doc.licenseurl||meta.metadata?.licenseurl||'');
+   const allowed=/creativecommons\.org\/licenses\/by(-sa)?\/|creativecommons\.org\/publicdomain\/zero|creativecommons\.org\/publicdomain\/mark/i.test(lic);
+   const el=document.createElement('article');el.className='movie';
+   el.innerHTML='<div class="poster"><div class="noimg">Internet Archive<br>MP4 candidate</div></div><div class="movieTitle"></div><div class="meta"></div>';
+   el.querySelector('.movieTitle').textContent=doc.title||doc.identifier;
+   el.querySelector('.meta').textContent=allowed?'CC license candidate — verify source':'Rights unclear — verify before use';
+   el.onclick=()=>{if(!allowed&&!confirm('ഈ item-ന്റെ rights വ്യക്തമായി സ്ഥിരീകരിച്ചിട്ടില്ല. Archive item page പരിശോധിച്ചിട്ടുണ്ടോ? തുടരണമോ?'))return;playSource({type:'mp4',title:doc.title||query,url:'https://archive.org/download/'+encodeURIComponent(doc.identifier)+'/'+encodeURIComponent(mp4.name),label:'Internet Archive candidate'});document.getElementById('playerInfo').textContent='Archive item metadata / license claim മാത്രം സ്വതന്ത്രമായ rights proof അല്ല. Item page-ൽ license, uploader, usage conditions പരിശോധിക്കുക.'};
+   grid.appendChild(el)
+  }
+  setStatus('mythStatus',grid.children.length?'Candidates കാണിക്കുന്നു. Rights ഉറപ്പാക്കിയ ശേഷം മാത്രം പ്ലേ ചെയ്യുക.':'Playable MP4 candidates കണ്ടെത്തിയില്ല.');
+ }catch(e){setStatus('mythStatus','Archive search failed: '+e.message)}
+}
+loadMovies();
+</script>
+ </body>
+</html>
